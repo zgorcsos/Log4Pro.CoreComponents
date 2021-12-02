@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Görcsös Zoltán</Authors>
+    <Company>Vonalkód Rendszerház Kft.</Company>
+    <Description>Usefull simple basic components into ASP.Net backend as ASP.Net services for modern web deveopment.</Description>
+    <Copyright>Copyright © Vonalkód Rendszerház Kft. 2021-present</Copyright>
+    <PackageProjectUrl>TODO: add git repo documentation url here</PackageProjectUrl>
+    <RepositoryType>own gitlab server</RepositoryType>
+    <PackageTags>Net5+ ASP.NET</PackageTags>
+    <PackageReleaseNotes>Beta release</PackageReleaseNotes>
+    <Version>1.0.0-beta3</Version>
+    <PackageIcon>serviceicon.png</PackageIcon>
+    <PackageId>Vrh.Log4Pro.Core</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UnitTests\**" />
+    <EmbeddedResource Remove="UnitTests\**" />
+    <None Remove="UnitTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.59" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.50" />
+    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="5.13.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="serviceicon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+</Project>
