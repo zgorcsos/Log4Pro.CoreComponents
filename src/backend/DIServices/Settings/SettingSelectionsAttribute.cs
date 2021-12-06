@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vrh.DIServices.Settings
+namespace Log4Pro.DIServices.Settings
 {
 	/// <summary>
 	/// Mark an Enum as source of an options-type setting

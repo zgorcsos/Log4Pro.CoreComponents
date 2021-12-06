@@ -3,9 +3,9 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Linq;
-using Vrh.DIServices.Settings.Internals;
+using Log4Pro.DIServices.Settings.Internals;
 
-namespace Vrh.DIServices.Settings.DAL
+namespace Log4Pro.DIServices.Settings.DAL
 {
 	/// <summary>
 	/// Database context of Settings module.

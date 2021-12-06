@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Vrh.DIServices.Redis;
+using Log4Pro.DIServices.Redis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Vrh.DIServices.Caching;
-using Vrh.Classes.UnitTestExtensions;
-using Vrh.DIServices;
-using Vrh.DIServices.Caching.Providers.Redis;
+using Log4Pro.DIServices.Caching;
+using Log4Pro.Classes.UnitTestExtensions;
+using Log4Pro.DIServices;
+using Log4Pro.DIServices.Caching.Providers.Redis;
 
-namespace Vrh.Test.DIServices.Caching.Providers.Redis
+namespace Log4Pro.Test.DIServices.Caching.Providers.Redis
 {
 	public class RedisCacheProviderUnitTest : TestBaseClassWithServiceCollection
 	{

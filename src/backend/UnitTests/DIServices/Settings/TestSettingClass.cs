@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vrh.DIServices.Settings;
+using Log4Pro.DIServices.Settings;
 
-namespace Vrh.Test.DIServices.Settings
+namespace Log4Pro.Test.DIServices.Settings
 {
 	[Description(nameof(TestSettingClass))]
 	[ModuleKey(MODULE_NAME)]

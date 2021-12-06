@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xunit;
-using Vrh.DIServices.Caching;
-using Vrh.DIServices.Caching.Providers.ManagedMemory;
-using Vrh.DIServices;
-using Vrh.Classes.UnitTestExtensions;
+using Log4Pro.DIServices.Caching;
+using Log4Pro.DIServices.Caching.Providers.ManagedMemory;
+using Log4Pro.DIServices;
+using Log4Pro.Classes.UnitTestExtensions;
 
-namespace Vrh.Test.DIServices.Caching.Providers
+namespace Log4Pro.Test.DIServices.Caching.Providers
 {
 	public class ManagedMemoryCacheProvider
 	{

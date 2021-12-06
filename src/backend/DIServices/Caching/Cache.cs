@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Vrh.DIServices.Caching
+namespace Log4Pro.DIServices.Caching
 {
 	/// <summary>
 	/// Object cache implementation

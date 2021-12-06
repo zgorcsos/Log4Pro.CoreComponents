@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Vrh.DIServices.Redis;
+using Log4Pro.DIServices.Redis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Vrh.Classes.UnitTestExtensions;
-using Vrh.DIServices;
+using Log4Pro.Classes.UnitTestExtensions;
+using Log4Pro.DIServices;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Vrh.Test.DIServices.Redis
+namespace Log4Pro.Test.DIServices.Redis
 {
 	public class RedisConnectionMultiplexerStoreUnitTest : TestBaseClassWithServiceCollection
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vrh.DIServices.Settings
+namespace Log4Pro.DIServices.Settings
 {
 	/// <summary>
 	/// Indicates that this is sensitive data

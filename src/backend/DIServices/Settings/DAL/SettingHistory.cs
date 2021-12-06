@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Vrh.DIServices.Settings.DAL
+namespace Log4Pro.DIServices.Settings.DAL
 {
     /// <summary>
     /// Egy beállítás értékének változása

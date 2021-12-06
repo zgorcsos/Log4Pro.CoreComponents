@@ -13,7 +13,7 @@
     <PackageReleaseNotes>Beta release</PackageReleaseNotes>
     <Version>1.0.0-beta3</Version>
     <PackageIcon>serviceicon.png</PackageIcon>
-    <PackageId>Vrh.Log4Pro.Core</PackageId>
+    <PackageId>Log4Pro.Log4Pro.Core</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

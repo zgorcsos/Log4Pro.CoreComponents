@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
-using Vrh.DIServices.Settings.Internals;
+using Log4Pro.DIServices.Settings.Internals;
 
-namespace Vrh.DIServices.Settings.DAL
+namespace Log4Pro.DIServices.Settings.DAL
 {
 #pragma warning disable CS1658 // Warning is overriding an error
 #pragma warning disable CS1584 // XML comment has syntactically incorrect cref attribute

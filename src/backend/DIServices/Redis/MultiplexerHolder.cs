@@ -1,7 +1,7 @@
 ﻿using StackExchange.Redis;
 using System;
 
-namespace Vrh.DIServices.Redis
+namespace Log4Pro.DIServices.Redis
 {
 	/// <summary>
 	/// This class encapsulates an Multiplexer instance, and provide auto reconnect an halted multiplexer.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vrh.DIServices.Caching
+namespace Log4Pro.DIServices.Caching
 {
     /// <summary>
     /// Not found in cache Exception. 

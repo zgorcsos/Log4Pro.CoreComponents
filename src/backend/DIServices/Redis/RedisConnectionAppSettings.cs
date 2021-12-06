@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vrh.DIServices.Redis
+namespace Log4Pro.DIServices.Redis
 {
 	/// <summary>
 	/// Represent an redis connection settings

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Vrh.DIServices.Settings.DAL
+namespace Log4Pro.DIServices.Settings.DAL
 {
 	/// <summary>
 	/// Represent a setting

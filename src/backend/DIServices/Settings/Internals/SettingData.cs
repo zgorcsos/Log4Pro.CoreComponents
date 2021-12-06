@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vrh.DIServices.Settings.Internals
+namespace Log4Pro.DIServices.Settings.Internals
 {
 	/// <summary>
 	/// Beállítás adatiat reprezentáló osztály

@@ -1,19 +1,19 @@
 ﻿using System;
 using Xunit;
-using Vrh.DIServices.Caching;
+using Log4Pro.DIServices.Caching;
 using Newtonsoft.Json;
 using Moq;
 using Microsoft.Extensions.Logging;
-using Vrh.DIServices.Redis;
-using Vrh.DIServices.Caching.Providers.Redis;
+using Log4Pro.DIServices.Redis;
+using Log4Pro.DIServices.Caching.Providers.Redis;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
-using Vrh.DIServices.Caching.Providers.ManagedMemory;
-using Vrh.Classes.UnitTestExtensions;
-using Vrh.DIServices;
+using Log4Pro.DIServices.Caching.Providers.ManagedMemory;
+using Log4Pro.Classes.UnitTestExtensions;
+using Log4Pro.DIServices;
 
-namespace Vrh.Test.DIServices.Caching
+namespace Log4Pro.Test.DIServices.Caching
 {
 	public class CachingUnitTests : TestBaseClassWithServiceCollection
 	{

@@ -1,4 +1,4 @@
-﻿namespace Vrh.DIServices.Caching.Providers.Redis
+﻿namespace Log4Pro.DIServices.Caching.Providers.Redis
 {
 	/// <summary>
 	/// Represernts the Redis cache provider app settings class

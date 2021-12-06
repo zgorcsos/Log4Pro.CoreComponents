@@ -11,12 +11,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Vrh.DIServices.Caching;
-using Vrh.DIServices.Settings.DAL;
-using Vrh.DIServices.Settings.Internals;
-using Vrh.DIServices.UnitTesting;
+using Log4Pro.DIServices.Caching;
+using Log4Pro.DIServices.Settings.DAL;
+using Log4Pro.DIServices.Settings.Internals;
+using Log4Pro.DIServices.UnitTesting;
 
-namespace Vrh.DIServices.Settings
+namespace Log4Pro.DIServices.Settings
 {
 	/// <summary>
 	/// Setting implementation

@@ -6,21 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using WkHtmlToPdfDotNet.Contracts;
 using WkHtmlToPdfDotNet;
-using Vrh.DIServices.Reports;
-using Vrh.DIServices.Hosting;
-using Vrh.DIServices.ContentInjector;
-using Vrh.DIServices.Redis;
+using Log4Pro.DIServices.Reports;
+using Log4Pro.DIServices.Hosting;
+using Log4Pro.DIServices.ContentInjector;
+using Log4Pro.DIServices.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Vrh.DIServices.UnitTesting;
-using Vrh.DIServices.Settings;
-using Vrh.DIServices.Settings.DAL;
-using Vrh.DIServices.Caching;
-using Vrh.DIServices.Caching.Providers.ManagedMemory;
-using Vrh.DIServices.Caching.Providers.Redis;
+using Log4Pro.DIServices.UnitTesting;
+using Log4Pro.DIServices.Settings;
+using Log4Pro.DIServices.Settings.DAL;
+using Log4Pro.DIServices.Caching;
+using Log4Pro.DIServices.Caching.Providers.ManagedMemory;
+using Log4Pro.DIServices.Caching.Providers.Redis;
 using Microsoft.Data.Sqlite;
 
-namespace Vrh.DIServices
+namespace Log4Pro.DIServices
 {
 	/// <summary>
 	/// Extension class for IServiceCollection for simplify our service registrations 
@@ -32,8 +32,8 @@ namespace Vrh.DIServices
 		/// And adds the all necesary services too, if those not registered yet.
 		/// So adds these dependency services:
 		///		- PdfTools (see: https://github.com/HakanL/WkHtmlToPdf-DotNet)
-		///		- HostProvider (Vrh.DIServices)
-		///		- ContentInjector (Vrh.DIServices)
+		///		- HostProvider (Log4Pro.DIServices)
+		///		- ContentInjector (Log4Pro.DIServices)
 		/// </summary>
 		/// <typeparam name="TImplementation">The type of the report implementation.</typeparam>
 		/// <param name="services">The services.</param>
@@ -78,7 +78,7 @@ namespace Vrh.DIServices
 		/// Adds the content injector service. (Singleton lifetime)
 		/// And adds the all necesary services too, if those not regstered yet.
 		/// So registers thise dependency service:
-		///		- HostProvider (Vrh.DIServices)
+		///		- HostProvider (Log4Pro.DIServices)
 		/// </summary>
 		/// <param name="services">The services.</param>
 		/// <returns></returns>

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace Vrh.DIServices.Redis
+namespace Log4Pro.DIServices.Redis
 {
 	/// <summary>
 	/// Represent an Redis connection with one or more Multiplexer stock (see PoolDeep parameter to)

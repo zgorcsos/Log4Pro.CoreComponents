@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vrh.DIServices.ContentInjector;
-using Vrh.DIServices.Hosting;
-using Vrh.Classes.UnitTestExtensions;
-using Vrh.DIServices;
+using Log4Pro.DIServices.ContentInjector;
+using Log4Pro.DIServices.Hosting;
+using Log4Pro.Classes.UnitTestExtensions;
+using Log4Pro.DIServices;
 using Xunit;
 
-namespace Vrh.Test.DIServices.ContentInjector
+namespace Log4Pro.Test.DIServices.ContentInjector
 {
 	public class ContentInjectorUnitTest : TestBaseClassWithServiceCollection
 	{

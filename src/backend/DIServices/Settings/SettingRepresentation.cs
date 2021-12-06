@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vrh.DIServices.Settings
+namespace Log4Pro.DIServices.Settings
 {
 	/// <summary>
 	/// Full representation of a setting
