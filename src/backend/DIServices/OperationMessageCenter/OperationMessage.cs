@@ -1,34 +1,25 @@
-﻿using System;
+﻿using Log4Pro.CoreComponents.DIServices.OperationMessageCenter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Log4Pro.OperationMessageCenter.Core.DAL;
-using Log4Pro.Logger;
-using Log4Pro.EventHub.Core;
-using Log4Pro.EventHub.Protocols.RedisPubSub;
 
-namespace Log4Pro.OperationMessageCenter.Core
+namespace Log4Pro.CoreComponents.CoreComponents.DIServices.OperationMessageCenter
 {
-	/// <summary>
-	/// Működési üzenet modul
-	/// </summary>
-	public class OperationMessageCore
-	{
-		#region instance level parts
-
+    public class OperationMessage
+    {
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="module">module azonosító a példány által küldött üzenetekben (Message methodokkal lekért üzenetek)</param>
 		/// <param name="instance">instance azonosító a példány által küldött üzenetekben</param>
 		/// <param name="otherFilter">egyéb azonosító a példány által küldött üzenetekben</param>
-		public OperationMessageCore(string module, string instance, string otherFilter = null)
+		public OperationMessage(string module, string instance, string otherFilter = null)
 		{
 			_module = module;
 			_instance = instance;
-			_otherFilter = otherFilter;			
+			_otherFilter = otherFilter;
 		}
 
 		public void StartNewThread(string threadId = null)
@@ -208,93 +199,5 @@ namespace Log4Pro.OperationMessageCenter.Core
 		/// </summary>
 		private readonly string _otherFilter;
 
-		#endregion instance level parts
-
-		#region Static parts
-
-		/// <summary>
-		/// Hozzáad egy üzenetet az üzenetközponthoz
-		/// </summary>
-		/// <param name="entry">Üzenet</param>
-		/// <returns>true, ha sikeres a művelet</returns>
-		public static Task<bool> AddMessageAsync(OperationMessageEntry entry)
-		{
-			return Task.Run<bool>(() => AddMessage(entry));
-		}
-
-		/// <summary>
-		/// Definiált EventHub műveleti csatorna azonosító
-		///     Ide a beállított kategoriájú üzeneteket átküldi
-		/// </summary>
-		public static string OperationMessageChannel { get => nameof(OperationMessageCore.OperationMessageChannel); }
-
-		/// <summary>
-		/// Definiált EventHub hiba műveleti csatorna azonosító
-		///     Ide a fellépő hibákat átküldi
-		/// </summary>
-		public static string OperationMessageErrorChannel { get => nameof(OperationMessageCore.OperationMessageErrorChannel); }
-
-		/// <summary>
-		/// Logolja-e a hibákat
-		/// </summary>
-		public static bool LoggingError { get; set; } = true;
-
-		/// <summary>
-		/// Hozzáad egy üzenetet az üzenetközponthoz
-		/// </summary>
-		/// <param name="entry">Üzenet</param>
-		/// <returns>true, ha sikeres a művelet</returns>
-		internal static bool AddMessage(OperationMessageEntry entry)
-		{
-			try
-			{
-				using (var db = new OperationMessageCenterContext())
-				{
-					var messageEntity = new DAL.OperationMessage()
-					{
-						Instance = entry.Instance,
-						Message = entry.Message,
-						MessageCategory = entry.MessageCategory,
-						Module = entry.Module,
-						OtherFilter = string.IsNullOrEmpty(entry.OtherFilter) ? null : entry.OtherFilter,
-						TimeStamp = DateTime.UtcNow,
-						Thread = entry.Thread,
-					};
-					db.OperationMessages.Add(messageEntity);
-					foreach (var additionalData in entry.AdditionalDatas)
-					{
-						var additionalDataEntity = new AdditionalMessageData()
-						{
-							DataKey = additionalData.Key,
-							DataValue = additionalData.Value,
-							OperationMessage = messageEntity,
-						};
-						db.AdditionalMessageDatas.Add(additionalDataEntity);						
-					}
-					db.SaveChanges();
-					entry.DbId = messageEntity.Id;
-					entry.TimeStamp = messageEntity.TimeStamp;
-					EventHubCore.Send<RedisPubSubChannel, OperationMessageEntry>(OperationMessageChannel, entry);
-				}
-				return true;
-			}
-			catch (Exception ex)
-			{
-				try
-				{
-					if (LoggingError)
-					{
-						VrhLogger.Log(ex, typeof(OperationMessageCore));
-					}
-					EventHubCore.Send<RedisPubSubChannel, Exception>(OperationMessageErrorChannel, ex);
-				}
-				catch (Exception)
-				{
-				}
-				return false;
-			}
-		}
-
-		#endregion Static parts
 	}
 }

@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace .OperationMessageCenter.Core
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter
 {
 	/// <summary>
-	/// Definiált üzenet kategóriák
+	/// Defined operation message category
 	/// </summary>
 	[JsonConverter(typeof(StringEnumConverter))]
 	public enum MessageCategory

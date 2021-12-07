@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.OperationMessageCenter.Core.DAL
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter.DAL
 {
 	/// <summary>
 	/// Operation Message Center DAL servicees as extension methodes

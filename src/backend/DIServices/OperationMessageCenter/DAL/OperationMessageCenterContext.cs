@@ -1,42 +1,38 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Log4Pro.ConnectionStringStore;
 
-namespace Log4Pro.OperationMessageCenter.Core.DAL
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter.DAL
 {
 	public class OperationMessageCenterContext : DbContext
 	{
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="OperationMessageCenterContext"/> class.
         /// </summary>
-        public OperationMessageCenterContext()
-            : base(VRHConnectionStringStore.GetSQLConnectionString("OperationMessageCenter", true))
+        /// <param name="options">The options for this context.</param>
+        public OperationMessageCenterContext(
+            DbContextOptions options) : base(options)
         {
-			((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
-			Database.SetInitializer(new MigrateDatabaseToLatestVersion<OperationMessageCenterContext, Migrations.Configuration>());
+            Database.Migrate();
         }
 
-        /// <summary>
-        /// OnModelCreating override
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.HasDefaultSchema(DB_SCHEMA);
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            base.OnModelCreating(modelBuilder);
-        }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+			{
+				relationship.DeleteBehavior = DeleteBehavior.Restrict;
+			}
+			base.OnModelCreating(modelBuilder);
+		}
 
-        /// <summary>
-        /// Üzenetek
-        /// </summary>
-        public DbSet<OperationMessage> OperationMessages { get; set; }
+
+		/// <summary>
+		/// Üzenetek
+		/// </summary>
+		internal DbSet<OperationMessage> OperationMessages { get; set; }
 
         /// <summary>
         /// Üzenetek további adatai
@@ -44,8 +40,8 @@ namespace Log4Pro.OperationMessageCenter.Core.DAL
         public DbSet<AdditionalMessageData> AdditionalMessageDatas { get; set; }
 
         /// <summary>
-        /// Adatbázis séma név
+        /// Database schema name
         /// </summary>
-        public const string DB_SCHEMA = "omcenter";
+        internal const string DB_SCHEMA = "omcenter";
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.OperationMessageCenter.Core
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter
 {
 	/// <summary>
 	/// Egy üzenet bejegyzés

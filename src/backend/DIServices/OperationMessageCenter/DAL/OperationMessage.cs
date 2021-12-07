@@ -3,11 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.OperationMessageCenter.DAL
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter.DAL
 {
     /// <summary>
     /// Represent an operation message 
@@ -20,7 +17,8 @@ namespace Log4Pro.DIServices.OperationMessageCenter.DAL
     [Index(nameof(Handled))]
     [Index(nameof(HandledTimeStamp))]
     [Index(nameof(Thread))]
-    internal class OperationMessage
+    [Table(nameof(OperationMessageCenterContext.OperationMessages), Schema = OperationMessageCenterContext.DB_SCHEMA)]
+    public class OperationMessage
 	{
 		/// <summary>
 		/// PK

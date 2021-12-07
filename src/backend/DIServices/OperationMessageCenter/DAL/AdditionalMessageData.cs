@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.OperationMessageCenter.DAL
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter.DAL
 {
 	/// <summary>
 	/// További, az üzenethez tartozó adatok
 	/// </summary>
 	[Index(nameof(DataKey))]
+	[Table(nameof(OperationMessageCenterContext.AdditionalMessageDatas), Schema = OperationMessageCenterContext.DB_SCHEMA)]
 	public class AdditionalMessageData
 	{
 		/// <summary>

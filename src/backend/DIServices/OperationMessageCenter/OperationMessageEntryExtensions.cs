@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.OperationMessageCenter.Core
+namespace Log4Pro.CoreComponents.DIServices.OperationMessageCenter
 {
 	/// <summary>
 	/// Bővító metódusok az OperationMessageEntry típushoz
@@ -37,7 +37,7 @@ namespace Log4Pro.OperationMessageCenter.Core
 			}
 			else
 			{
-				OperationMessageCore.AddMessageAsync(messageEntry);
+				OperationMessageCenter.AddMessageAsync(messageEntry);
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace Log4Pro.OperationMessageCenter.Core
 		/// <param name="messageEntry">The message entry.</param>
 		public static void SendAndWaitMe(this OperationMessageEntry messageEntry)
 		{
-			OperationMessageCore.AddMessage(messageEntry);
+			OperationMessageCenter.AddMessage(messageEntry);
 		}
 	}
 }
