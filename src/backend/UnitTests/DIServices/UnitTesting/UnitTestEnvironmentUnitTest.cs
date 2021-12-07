@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Log4Pro.CoreComponents.DIServices.Redis;
+using Log4Pro.CoreComponents.Redis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Log4Pro.CoreComponents.Classes.UnitTestExtensions;
-using Log4Pro.CoreComponents.DIServices.UnitTesting;
+using Log4Pro.CoreComponents.UnitTesting;
 
-namespace Log4Pro.CoreComponents.Test.DIServices.UnitTesting
+namespace Log4Pro.CoreComponents.Test.UnitTesting
 {
 	public class UnitTestEnvironmentUnitTest : TestBaseClassWithServiceCollection
 	{

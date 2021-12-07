@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xunit;
-using Log4Pro.CoreComponents.DIServices.Caching;
-using Log4Pro.CoreComponents.DIServices.Caching.Providers.ManagedMemory;
-using Log4Pro.CoreComponents.DIServices;
+using Log4Pro.CoreComponents.Caching;
+using Log4Pro.CoreComponents.Caching.Providers.ManagedMemory;
+using Log4Pro.CoreComponents;
 using Log4Pro.CoreComponents.Classes.UnitTestExtensions;
 
-namespace Log4Pro.CoreComponents.Test.DIServices.Caching.Providers
+namespace Log4Pro.CoreComponents.Test.Caching.Providers
 {
 	public class ManagedMemoryCacheProvider
 	{

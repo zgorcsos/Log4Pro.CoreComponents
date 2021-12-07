@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Log4Pro.CoreComponents.Classes.UnitTestExtensions;
-using Log4Pro.CoreComponents.DIServices.UnitTesting;
+using Log4Pro.CoreComponents.UnitTesting;
 
 namespace Log4Pro.CoreComponents.Test
 {
