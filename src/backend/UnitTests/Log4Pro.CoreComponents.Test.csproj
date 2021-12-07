@@ -52,10 +52,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Classes\Graphes\" />
-    <Folder Include="Classes\UnitTestExtensions\" />
-    <Folder Include="DIServices\i18n\DAL\" />
-    <Folder Include="DIServices\Reports\" />
+    <Folder Include="i18n\DAL\" />
+    <Folder Include="Reports\" />
   </ItemGroup>
 
   <ItemGroup>
