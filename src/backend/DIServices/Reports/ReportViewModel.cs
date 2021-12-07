@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WkHtmlToPdfDotNet;
 
-namespace Log4Pro.DIServices.Reports
+namespace Log4Pro.CoreComponents.DIServices.Reports
 {
 	/// <summary>
 	/// View model class for reports

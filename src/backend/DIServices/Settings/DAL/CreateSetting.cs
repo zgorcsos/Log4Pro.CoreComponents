@@ -1,4 +1,4 @@
-﻿namespace Log4Pro.DIServices.Settings.DAL
+﻿namespace Log4Pro.CoreComponents.DIServices.Settings.DAL
 {
 	/// <summary>
 	/// Represents a setting creation

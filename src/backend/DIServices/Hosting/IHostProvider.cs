@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.Hosting
+namespace Log4Pro.CoreComponents.DIServices.Hosting
 {
 	/// <summary>
 	/// Host provider interface

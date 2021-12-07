@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 
-namespace Log4Pro.DIServices.Redis
+namespace Log4Pro.CoreComponents.DIServices.Redis
 {
 	/// <summary>
 	/// Stores and provides the reusable Redis Stackexchange ConnectionMultiplexer object

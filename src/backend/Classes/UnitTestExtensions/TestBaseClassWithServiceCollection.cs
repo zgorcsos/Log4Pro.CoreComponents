@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.Classes.UnitTestExtensions
+namespace Log4Pro.CoreComponents.Classes.UnitTestExtensions
 {
 	/// <summary>
 	/// Base class for easy injectable in unit tests 

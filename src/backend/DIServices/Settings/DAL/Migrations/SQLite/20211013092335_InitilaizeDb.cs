@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Log4Pro.DIServices.Settings.DAL.Migrations.SQLite
+namespace Log4Pro.CoreComponents.DIServices.Settings.DAL.Migrations.SQLite
 {
     public partial class InitilaizeDb : Migration
     {

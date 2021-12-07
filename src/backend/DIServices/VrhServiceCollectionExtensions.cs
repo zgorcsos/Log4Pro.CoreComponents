@@ -6,21 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using WkHtmlToPdfDotNet.Contracts;
 using WkHtmlToPdfDotNet;
-using Log4Pro.DIServices.Reports;
-using Log4Pro.DIServices.Hosting;
-using Log4Pro.DIServices.ContentInjector;
-using Log4Pro.DIServices.Redis;
+using Log4Pro.CoreComponents.DIServices.Reports;
+using Log4Pro.CoreComponents.DIServices.Hosting;
+using Log4Pro.CoreComponents.DIServices.ContentInjector;
+using Log4Pro.CoreComponents.DIServices.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Log4Pro.DIServices.UnitTesting;
-using Log4Pro.DIServices.Settings;
-using Log4Pro.DIServices.Settings.DAL;
-using Log4Pro.DIServices.Caching;
-using Log4Pro.DIServices.Caching.Providers.ManagedMemory;
-using Log4Pro.DIServices.Caching.Providers.Redis;
+using Log4Pro.CoreComponents.DIServices.UnitTesting;
+using Log4Pro.CoreComponents.DIServices.Settings;
+using Log4Pro.CoreComponents.DIServices.Settings.DAL;
+using Log4Pro.CoreComponents.DIServices.Caching;
+using Log4Pro.CoreComponents.DIServices.Caching.Providers.ManagedMemory;
+using Log4Pro.CoreComponents.DIServices.Caching.Providers.Redis;
 using Microsoft.Data.Sqlite;
 
-namespace Log4Pro.DIServices
+namespace Log4Pro.CoreComponents.DIServices
 {
 	/// <summary>
 	/// Extension class for IServiceCollection for simplify our service registrations 
@@ -32,8 +32,8 @@ namespace Log4Pro.DIServices
 		/// And adds the all necesary services too, if those not registered yet.
 		/// So adds these dependency services:
 		///		- PdfTools (see: https://github.com/HakanL/WkHtmlToPdf-DotNet)
-		///		- HostProvider (Log4Pro.DIServices)
-		///		- ContentInjector (Log4Pro.DIServices)
+		///		- HostProvider (Log4Pro.CoreComponents.DIServices)
+		///		- ContentInjector (Log4Pro.CoreComponents.DIServices)
 		/// </summary>
 		/// <typeparam name="TImplementation">The type of the report implementation.</typeparam>
 		/// <param name="services">The services.</param>
@@ -78,7 +78,7 @@ namespace Log4Pro.DIServices
 		/// Adds the content injector service. (Singleton lifetime)
 		/// And adds the all necesary services too, if those not regstered yet.
 		/// So registers thise dependency service:
-		///		- HostProvider (Log4Pro.DIServices)
+		///		- HostProvider (Log4Pro.CoreComponents.DIServices)
 		/// </summary>
 		/// <param name="services">The services.</param>
 		/// <returns></returns>

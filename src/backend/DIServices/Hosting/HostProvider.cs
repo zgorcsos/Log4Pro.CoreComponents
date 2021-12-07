@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.Hosting
+namespace Log4Pro.CoreComponents.DIServices.Hosting
 {
 	/// <summary>
 	/// Host provider impelmentation.
 	/// </summary>
-	/// <seealso cref="Log4Pro.AspNetServices.Hosting.IHostProvider" />
+	/// <seealso cref="Log4Pro.CoreComponents.AspNetServices.Hosting.IHostProvider" />
 	public class HostProvider : IHostProvider
 	{
 		private readonly IWebHostEnvironment _webHostEnvironment;

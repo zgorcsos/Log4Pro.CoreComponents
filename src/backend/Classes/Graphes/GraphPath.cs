@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.Classes.Graphes
+namespace Log4Pro.CoreComponents.Classes.Graphes
 {
 	/// <summary>
 	/// An infinite depth address of data

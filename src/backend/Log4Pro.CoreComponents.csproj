@@ -13,13 +13,25 @@
     <PackageReleaseNotes>Beta release</PackageReleaseNotes>
     <Version>1.0.0-beta3</Version>
     <PackageIcon>serviceicon.png</PackageIcon>
-    <PackageId>Log4Pro.Log4Pro.Core</PackageId>
+    <PackageId>Log4Pro.CoreComponents.Log4Pro.CoreComponents.Core</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="UnitTests\**" />
     <EmbeddedResource Remove="UnitTests\**" />
     <None Remove="UnitTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

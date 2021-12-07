@@ -11,12 +11,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Log4Pro.DIServices.Caching;
-using Log4Pro.DIServices.Settings.DAL;
-using Log4Pro.DIServices.Settings.Internals;
-using Log4Pro.DIServices.UnitTesting;
+using Log4Pro.CoreComponents.DIServices.Caching;
+using Log4Pro.CoreComponents.DIServices.Settings.DAL;
+using Log4Pro.CoreComponents.DIServices.Settings.Internals;
+using Log4Pro.CoreComponents.DIServices.UnitTesting;
 
-namespace Log4Pro.DIServices.Settings
+namespace Log4Pro.CoreComponents.DIServices.Settings
 {
 	/// <summary>
 	/// Setting implementation

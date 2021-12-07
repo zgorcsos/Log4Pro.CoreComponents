@@ -7,27 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using Log4Pro.DIServices.Redis;
+using Log4Pro.CoreComponents.DIServices.Redis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Log4Pro.DIServices.Settings;
-using Log4Pro.DIServices.Settings.DAL;
-using Log4Pro.Classes.UnitTestExtensions;
-using Log4Pro.DIServices;
-using Log4Pro.DIServices.Caching;
-using Log4Pro.DIServices.Settings.Internals;
+using Log4Pro.CoreComponents.DIServices.Settings;
+using Log4Pro.CoreComponents.DIServices.Settings.DAL;
+using Log4Pro.CoreComponents.Classes.UnitTestExtensions;
+using Log4Pro.CoreComponents.DIServices;
+using Log4Pro.CoreComponents.DIServices.Caching;
+using Log4Pro.CoreComponents.DIServices.Settings.Internals;
 using Newtonsoft.Json;
 
-namespace Log4Pro.Test.DIServices.Settings
+namespace Log4Pro.CoreComponents.Test.DIServices.Settings
 {
 	public class VSettingsUnitTest : TestBaseClassWithServiceCollection
 	{
 		public VSettingsUnitTest(IServiceProvider serviceProvider, IServiceCollection sc) : base(serviceProvider)
 		{
 			var c2 = serviceProvider;
-			var mockLogger = new Mock<ILogger<Log4Pro.DIServices.Settings.VSettings>>();
-			AddService<ILogger<Log4Pro.DIServices.Settings.VSettings>, ILogger<Log4Pro.DIServices.Settings.VSettings>>(ServiceLifetime.Transient, mockLogger.Object);
+			var mockLogger = new Mock<ILogger<Log4Pro.CoreComponents.DIServices.Settings.VSettings>>();
+			AddService<ILogger<Log4Pro.CoreComponents.DIServices.Settings.VSettings>, ILogger<Log4Pro.CoreComponents.DIServices.Settings.VSettings>>(ServiceLifetime.Transient, mockLogger.Object);
 			var s = _serviceCollection.FirstOrDefault(x => x.ServiceType == typeof(IConfiguration));
 			_serviceCollection.Remove(s);
 			var builder = new ConfigurationBuilder()
@@ -241,14 +241,14 @@ namespace Log4Pro.Test.DIServices.Settings
 		public void GetSettingValueFromCacheTrowsNotFoundException()
 		{
 			var s = GetService<VSettings>();
-			Assert.Throws<Log4Pro.DIServices.Caching.NotFoundException>(() => s.GetSettingValueFromCache<int>(s.GetAddress(typeof(TestSettingClass.ReaderCheckInterval), _testInstanceId)));
+			Assert.Throws<Log4Pro.CoreComponents.DIServices.Caching.NotFoundException>(() => s.GetSettingValueFromCache<int>(s.GetAddress(typeof(TestSettingClass.ReaderCheckInterval), _testInstanceId)));
 		}
 
 		[Fact(DisplayName = "GetSettingValueFromDb throws NotFoundException, if the required setting does not store in setting database.")]
 		public void GetSettingValueFromDbTrowsNotFoundException()
 		{
 			var s = GetService<VSettings>();
-			Assert.Throws<Log4Pro.DIServices.Settings.NotFoundException>(() => s.GetSettingValueFromDb<int>(s.GetAddress(typeof(TestSettingClass.ReaderCheckInterval), _testInstanceId)));
+			Assert.Throws<Log4Pro.CoreComponents.DIServices.Settings.NotFoundException>(() => s.GetSettingValueFromDb<int>(s.GetAddress(typeof(TestSettingClass.ReaderCheckInterval), _testInstanceId)));
 		}
 
 		[Fact(DisplayName = "GetAppSettingConfiguration works well.")]
@@ -276,8 +276,8 @@ namespace Log4Pro.Test.DIServices.Settings
 		{
 			var s = GetService<VSettings>();
 			var a = s.GetAddress(typeof(TestSettingClass.UseAuthentication.TechnicalUser), _testInstanceId);
-			Assert.Throws<Log4Pro.DIServices.Caching.NotFoundException>(() => s.GetSettingValueFromCache<int>(s.GetAddress(typeof(TestSettingClass.UseAuthentication.TechnicalUser), _testInstanceId)));
-			Assert.Throws<Log4Pro.DIServices.Settings.NotFoundException>(() => s.GetSettingValueFromDb<int>(s.GetAddress(typeof(TestSettingClass.UseAuthentication.TechnicalUser), _testInstanceId)));
+			Assert.Throws<Log4Pro.CoreComponents.DIServices.Caching.NotFoundException>(() => s.GetSettingValueFromCache<int>(s.GetAddress(typeof(TestSettingClass.UseAuthentication.TechnicalUser), _testInstanceId)));
+			Assert.Throws<Log4Pro.CoreComponents.DIServices.Settings.NotFoundException>(() => s.GetSettingValueFromDb<int>(s.GetAddress(typeof(TestSettingClass.UseAuthentication.TechnicalUser), _testInstanceId)));
 			Assert.Equal(TestSettingClass.TECHNICAL_USER_DEFAULTVALUE, s.GetSettingValue<string, TestSettingClass.UseAuthentication.TechnicalUser>(_testInstanceId));
 			Assert.Equal(TestSettingClass.TECHNICAL_USER_DEFAULTVALUE, s.GetSettingValueFromCache<string>(a));
 			Assert.Equal(TestSettingClass.TECHNICAL_USER_DEFAULTVALUE, s.GetSettingValueFromDb<string>(a));

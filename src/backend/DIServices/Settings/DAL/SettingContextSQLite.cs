@@ -7,18 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.Settings.DAL
+namespace Log4Pro.CoreComponents.DIServices.Settings.DAL
 {
-	public class SettingContextSQLite: SettingContext
+    /// <summary>
+    /// Context for unit testing
+    /// </summary>
+    /// <seealso cref="Log4Pro.CoreComponents.DIServices.Settings.DAL.SettingContext" />
+    public class SettingContextSQLite: SettingContext
 	{
 		public SettingContextSQLite(
 			DbContextOptions options) : base(options)
 		{
-		}
-
-		protected override void OnConfiguring(DbContextOptionsBuilder options)
-		{
-			//options.UseSqlite("Filename=:memory:", x => x.MigrationsAssembly(typeof(SettingContext).Assembly.FullName));
 		}
 	}
 }

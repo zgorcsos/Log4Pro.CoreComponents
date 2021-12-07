@@ -7,7 +7,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Log4Pro.DIServices.Settings.Internals
+namespace Log4Pro.CoreComponents.DIServices.Settings.Internals
 {
 	/// <summary>
 	/// A C# eszközökkel való, kódba helyezett definiciók feldolgozásának a segédműveletei

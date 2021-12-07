@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Log4Pro.DIServices.Hosting;
+using Log4Pro.CoreComponents.DIServices.Hosting;
 
-namespace Log4Pro.DIServices.ContentInjector
+namespace Log4Pro.CoreComponents.DIServices.ContentInjector
 {
 	/// <summary>
 	/// Content injector servie for useing in cshtmls.

@@ -1,15 +1,15 @@
 using System;
 using Xunit;
-using Log4Pro.DIServices.Hosting;
+using Log4Pro.CoreComponents.DIServices.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Moq;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
-using Log4Pro.Classes.UnitTestExtensions;
-using Log4Pro.DIServices;
+using Log4Pro.CoreComponents.Classes.UnitTestExtensions;
+using Log4Pro.CoreComponents.DIServices;
 using System.Linq;
 
-namespace Log4Pro.Test.DIServices.Hosting
+namespace Log4Pro.CoreComponents.Test.DIServices.Hosting
 {
 	public class HostingUnitTest : TestBaseClassWithServiceCollection
 	{

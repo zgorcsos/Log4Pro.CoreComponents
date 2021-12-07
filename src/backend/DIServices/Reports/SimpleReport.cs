@@ -16,9 +16,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Log4Pro.DIServices.Hosting;
+using Log4Pro.CoreComponents.DIServices.Hosting;
 
-namespace Log4Pro.DIServices.Reports
+namespace Log4Pro.CoreComponents.DIServices.Reports
 {
 	/// <summary>
 	/// Simple class for pdf reporting in .net core applications.

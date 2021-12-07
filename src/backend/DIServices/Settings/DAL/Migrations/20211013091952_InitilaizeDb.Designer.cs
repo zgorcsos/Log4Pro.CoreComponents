@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Log4Pro.DIServices.Settings.DAL;
+using Log4Pro.CoreComponents.DIServices.Settings.DAL;
 
-namespace Log4Pro.DIServices.Settings.DAL.Migrations
+namespace Log4Pro.CoreComponents.DIServices.Settings.DAL.Migrations
 {
     [DbContext(typeof(SettingContext))]
     [Migration("20211013091952_InitilaizeDb")]
@@ -21,7 +21,7 @@ namespace Log4Pro.DIServices.Settings.DAL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Log4Pro.AspNetServices.Settings.DAL.Setting", b =>
+            modelBuilder.Entity("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.Setting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,7 +76,7 @@ namespace Log4Pro.DIServices.Settings.DAL.Migrations
                     b.ToTable("Settings", "settings");
                 });
 
-            modelBuilder.Entity("Log4Pro.AspNetServices.Settings.DAL.SettingHistory", b =>
+            modelBuilder.Entity("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.SettingHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,9 +130,9 @@ namespace Log4Pro.DIServices.Settings.DAL.Migrations
                     b.HasDiscriminator<int>("OperationType");
                 });
 
-            modelBuilder.Entity("Log4Pro.AspNetServices.Settings.DAL.CreateSetting", b =>
+            modelBuilder.Entity("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.CreateSetting", b =>
                 {
-                    b.HasBaseType("Log4Pro.AspNetServices.Settings.DAL.SettingHistory");
+                    b.HasBaseType("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.SettingHistory");
 
                     b.Property<string>("To")
                         .ValueGeneratedOnUpdateSometimes()
@@ -144,9 +144,9 @@ namespace Log4Pro.DIServices.Settings.DAL.Migrations
                     b.HasDiscriminator().HasValue(0);
                 });
 
-            modelBuilder.Entity("Log4Pro.AspNetServices.Settings.DAL.DeleteSetting", b =>
+            modelBuilder.Entity("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.DeleteSetting", b =>
                 {
-                    b.HasBaseType("Log4Pro.AspNetServices.Settings.DAL.SettingHistory");
+                    b.HasBaseType("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.SettingHistory");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -161,9 +161,9 @@ namespace Log4Pro.DIServices.Settings.DAL.Migrations
                     b.HasDiscriminator().HasValue(2);
                 });
 
-            modelBuilder.Entity("Log4Pro.AspNetServices.Settings.DAL.ModifySetting", b =>
+            modelBuilder.Entity("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.ModifySetting", b =>
                 {
-                    b.HasBaseType("Log4Pro.AspNetServices.Settings.DAL.SettingHistory");
+                    b.HasBaseType("Log4Pro.CoreComponents.AspNetServices.Settings.DAL.SettingHistory");
 
                     b.Property<string>("From")
                         .ValueGeneratedOnUpdateSometimes()

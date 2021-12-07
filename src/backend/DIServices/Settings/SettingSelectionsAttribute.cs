@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.Settings
+namespace Log4Pro.CoreComponents.DIServices.Settings
 {
 	/// <summary>
 	/// Mark an Enum as source of an options-type setting

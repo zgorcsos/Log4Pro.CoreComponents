@@ -3,10 +3,10 @@ This module supports the SQLite Memory databaseb too (in separated db context), 
 
 The correct command for SettingContext:
 `
-Add-Migration -Name YourMigrationName -Context SettingContext -StartupProject Vrh.AspNetServices -OutputDir Settings/DAL/Migrations
+Add-Migration -Name YourMigrationName -Context SettingContext -StartupProject Log4Pro.CoreComponents -OutputDir DIServices/Settings/DAL/Migrations
 `
 
 The correct command for SQLiteSettingContext:
 `
-Add-Migration -Name YourMigrationName -Context SQLiteSettingContext -StartupProject Vrh.AspNetServices -OutputDir Settings/DAL/Migrations/SQLite
+Add-Migration -Name YourMigrationName -Context SQLiteSettingContext -StartupProject Log4Pro.CoreComponents -OutputDir DIServices/Settings/DAL/Migrations/SQLite
 `

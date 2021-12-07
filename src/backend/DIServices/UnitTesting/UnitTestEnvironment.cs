@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.UnitTesting
+namespace Log4Pro.CoreComponents.DIServices.UnitTesting
 {	
 	public class UnitTestEnvironment
 	{		

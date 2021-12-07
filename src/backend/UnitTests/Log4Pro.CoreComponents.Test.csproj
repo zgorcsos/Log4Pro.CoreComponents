@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -52,14 +52,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Log4Pro.CoreComponents.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Classes\Graphes\" />
     <Folder Include="Classes\UnitTestExtensions\" />
     <Folder Include="DIServices\i18n\DAL\" />
     <Folder Include="DIServices\Reports\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Log4Pro.CoreComponents.csproj" />
   </ItemGroup>
 
 </Project>

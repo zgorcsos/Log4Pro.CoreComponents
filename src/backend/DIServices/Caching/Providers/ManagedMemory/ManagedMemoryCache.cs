@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Log4Pro.DIServices.Caching.Providers.ManagedMemory
+namespace Log4Pro.CoreComponents.DIServices.Caching.Providers.ManagedMemory
 {
 	/// <summary>
 	/// A cache provider that stores the cache values in a high-speed acces, concurrent available storage structure in clr-managed memory.

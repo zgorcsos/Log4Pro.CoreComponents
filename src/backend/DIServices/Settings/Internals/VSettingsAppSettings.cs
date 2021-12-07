@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Log4Pro.DIServices.Settings.Internals
+namespace Log4Pro.CoreComponents.DIServices.Settings.Internals
 {
 	/// <summary>
-	/// Represent an redis connection settings
+	/// App setting section for VSetting componnent
 	/// </summary>
-	public class VSettingsAppSettings
+	internal class VSettingsAppSettings
 	{
 		/// <summary>
 		/// The used connection string.

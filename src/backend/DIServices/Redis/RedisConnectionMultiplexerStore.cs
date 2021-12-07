@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Log4Pro.DIServices.Redis
+namespace Log4Pro.CoreComponents.DIServices.Redis
 {
 	/// <summary>
 	/// RedisConnectionMultiplexer store implementation
 	/// </summary>
-	/// <seealso cref="Log4Pro.DIServices.Redis.IRedisConnectionMultiplexerStore" />
+	/// <seealso cref="Log4Pro.CoreComponents.DIServices.Redis.IRedisConnectionMultiplexerStore" />
 	public class RedisConnectionMultiplexerStore : IRedisConnectionMultiplexerStore
 	{
 		private readonly IConfiguration _configuration;

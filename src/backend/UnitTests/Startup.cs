@@ -9,10 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Log4Pro.Classes.UnitTestExtensions;
-using Log4Pro.DIServices.UnitTesting;
+using Log4Pro.CoreComponents.Classes.UnitTestExtensions;
+using Log4Pro.CoreComponents.DIServices.UnitTesting;
 
-namespace Log4Pro.Test
+namespace Log4Pro.CoreComponents.Test
 {
 	public class Startup
 	{

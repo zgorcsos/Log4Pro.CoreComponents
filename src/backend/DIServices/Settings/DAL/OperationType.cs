@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.DIServices.Settings.DAL
+namespace Log4Pro.CoreComponents.DIServices.Settings.DAL
 {
 	/// <summary>
 	/// The type of operation

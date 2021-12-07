@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Log4Pro.DIServices.Redis;
+using Log4Pro.CoreComponents.DIServices.Redis;
 
-namespace Log4Pro.DIServices.Caching.Providers.Redis
+namespace Log4Pro.CoreComponents.DIServices.Caching.Providers.Redis
 {
 	/// <summary>
 	/// Redis cache provider for VRH caching
