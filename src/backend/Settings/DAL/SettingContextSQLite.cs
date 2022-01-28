@@ -16,7 +16,7 @@ namespace Log4Pro.CoreComponents.Settings.DAL
     public class SettingContextSQLite: SettingContext
 	{
 		public SettingContextSQLite(
-			DbContextOptions options) : base(options)
+			DbContextOptions<SettingContext> options) : base(options)
 		{
 		}
 	}

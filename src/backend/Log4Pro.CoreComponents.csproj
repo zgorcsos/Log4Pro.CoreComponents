@@ -11,9 +11,9 @@
     <RepositoryType>own gitlab server</RepositoryType>
     <PackageTags>Net5+ ASP.NET</PackageTags>
     <PackageReleaseNotes>Beta release</PackageReleaseNotes>
-    <Version>1.0.0-beta3</Version>
+    <Version>1.0.0-beta7</Version>
     <PackageIcon>serviceicon.png</PackageIcon>
-    <PackageId>Log4Pro.CoreComponents.Log4Pro.CoreComponents.Core</PackageId>
+    <PackageId>Log4Pro.CoreComponents</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -58,5 +58,9 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Settings\DAL\Migrations\SQLite\" />
   </ItemGroup>
 </Project>

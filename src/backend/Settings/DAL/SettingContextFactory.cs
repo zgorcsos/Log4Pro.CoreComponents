@@ -33,8 +33,12 @@ namespace Log4Pro.CoreComponents.Settings.DAL
 			var config = VSettings.GetAppSettingConfiguration(configuration);
 			var connectionString = configuration
 						.GetConnectionString(config.UsedConnectionString);
-			var builder = new DbContextOptionsBuilder();
-			builder.UseSqlServer(connectionString, x => x.MigrationsAssembly(typeof(SettingContext).Assembly.FullName));
+			var builder = new DbContextOptionsBuilder<SettingContext>();
+			builder.UseSqlServer(connectionString, x =>
+			{
+				x.MigrationsAssembly(typeof(SettingContext).Assembly.FullName);
+				x.MigrationsHistoryTable("__EFMigrationsHistory", SettingContext.DB_SCHEMA);
+			});
 			return new SettingContext(builder.Options);
 		}
 	}

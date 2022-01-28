@@ -3,10 +3,10 @@ This module supports the SQLite Memory databaseb too (in separated db context), 
 
 The correct command for OperationMessageCenterContext:
 `
-Add-Migration -Name YourMigrationName -Context OperationMessageCenterContext -StartupProject Log4Pro.CoreComponents -OutputDir DIServices/OperationMessageCenter/DAL/Migrations
+Add-Migration -Name YourMigrationName -Context OperationMessageCenterContext -StartupProject Log4Pro.CoreComponents -OutputDir OperationMessageCenter/DAL/Migrations
 `
 
 The correct command for OperationMessageCenterContextSQLite:
 `
-Add-Migration -Name YourMigrationName -Context OperationMessageCenterContextSQLite -StartupProject Log4Pro.CoreComponents -OutputDir DIServices/OperationMessageCenter/DAL/Migrations/SQLite
+Add-Migration -Name YourMigrationName -Context OperationMessageCenterContextSQLite -StartupProject Log4Pro.CoreComponents -OutputDir OperationMessageCenter/DAL/Migrations/SQLite
 `

@@ -12,18 +12,25 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
     /// </summary>
     public class OperationMessageWriter
     {
-		private readonly OperationMessageServer _omCenter;
+		private readonly OperationMessageService _omCenter;
 
-        public OperationMessageWriter(OperationMessageServer omCenter)
+        public OperationMessageWriter(OperationMessageService omCenter)
         {
 			_omCenter = omCenter;
         }
 
-		public void Setup(string module, string instance)
+		/// <summary>
+		/// Setups the writer working parameters.
+		/// </summary>
+		/// <param name="module">The module identifier.</param>
+		/// <param name="instance">The instance identifier.</param>
+		/// <param name="minimumWritedMessageCategory">The minimum writed message category.</param>
+		public void Setup(string module, string instance, MessageCategory minimumWritedMessageCategory = MessageCategory.DetailInformation)
         {
 			_module = module;
 			_instance = instance;
-        }
+			_minimumWritedMessageCategory = minimumWritedMessageCategory;
+		}
 
 		public bool AddMessage(OperationMessageEntry entry, bool waitMe)
         {
@@ -190,19 +197,28 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
 
 		private OperationMessageEntry GetMessage(string message, MessageCategory messageCategory = MessageCategory.DetailInformation, string otherFilter = null)
 		{
-			return new OperationMessageEntry()
+			if (_minimumWritedMessageCategory >= messageCategory)
 			{
-				Module = _module,
-				Instance = _instance,
-				MessageCategory = messageCategory,
-				Message = message,
-				Thread = Thread,
-				OtherFilter = otherFilter,
-			};
+				return new OperationMessageEntry()
+				{
+					Module = _module,
+					Instance = _instance,
+					MessageCategory = messageCategory,
+					Message = message,
+					Thread = Thread,
+					OtherFilter = otherFilter,
+				};
+			}
+			else
+            {
+				return null;
+            }
 		}
 
 		private string _instance;
 
 		private string _module;
+
+		private MessageCategory _minimumWritedMessageCategory = MessageCategory.DetailInformation;
 	}
 }

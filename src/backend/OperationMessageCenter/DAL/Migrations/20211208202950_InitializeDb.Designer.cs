@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Log4Pro.CoreComponents.OperationMessageCenter.DAL.Migrations
 {
     [DbContext(typeof(OperationMessageCenterContext))]
-    [Migration("20211206155638_InitializeDb")]
+    [Migration("20211208202950_InitializeDb")]
     partial class InitializeDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

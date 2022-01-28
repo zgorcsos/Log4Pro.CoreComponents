@@ -26,8 +26,12 @@ namespace Log4Pro.CoreComponents.Settings.DAL
 		/// </returns>
 		public SettingContextSQLite CreateDbContext(string[] args)
 		{
-			var builder = new DbContextOptionsBuilder();
-			builder.UseSqlite("Filename=:memory:", x => x.MigrationsAssembly(typeof(SettingContext).Assembly.FullName));
+			var builder = new DbContextOptionsBuilder<SettingContext>();
+			builder.UseSqlite("Filename=:memory:", x =>
+			{
+				x.MigrationsAssembly(typeof(SettingContextSQLite).Assembly.FullName);
+				x.MigrationsHistoryTable("__EFMigrationsHistory", SettingContextSQLite.DB_SCHEMA);
+			});
 			return new SettingContextSQLite(builder.Options);
 		}
 	}

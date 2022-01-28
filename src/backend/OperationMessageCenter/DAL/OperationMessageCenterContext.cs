@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace Log4Pro.CoreComponents.OperationMessageCenter.DAL
 {
-	public class OperationMessageCenterContext : DbContext
+    /// <summary>
+    /// Database context of Operation message center
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
+    public class OperationMessageCenterContext : DbContext
 	{
         /// <summary>
         /// Initializes a new instance of the <see cref="OperationMessageCenterContext"/> class.
         /// </summary>
         /// <param name="options">The options for this context.</param>
         public OperationMessageCenterContext(
-            DbContextOptions options) : base(options)
+            DbContextOptions<OperationMessageCenterContext> options) : base(options)
         {
             Database.Migrate();
         }
@@ -30,12 +34,12 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter.DAL
 
 
 		/// <summary>
-		/// Üzenetek
+		/// Operation messages
 		/// </summary>
 		internal DbSet<OperationMessage> OperationMessages { get; set; }
 
         /// <summary>
-        /// Üzenetek további adatai
+        /// Aditional data of operation message
         /// </summary>
         public DbSet<AdditionalMessageData> AdditionalMessageDatas { get; set; }
 

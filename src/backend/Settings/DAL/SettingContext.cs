@@ -18,7 +18,7 @@ namespace Log4Pro.CoreComponents.Settings.DAL
 		/// </summary>
 		/// <param name="options">The options for this context.</param>
 		public SettingContext(
-			DbContextOptions options) : base(options)
+			DbContextOptions<SettingContext> options) : base(options)
 		{
 			Database.Migrate();
 		}

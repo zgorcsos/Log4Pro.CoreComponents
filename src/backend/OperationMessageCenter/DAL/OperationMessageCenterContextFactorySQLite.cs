@@ -25,7 +25,7 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter.DAL
 		/// </returns>
 		public OperationMessageCenterContextSQLite CreateDbContext(string[] args)
 		{
-			var builder = new DbContextOptionsBuilder();
+			var builder = new DbContextOptionsBuilder<OperationMessageCenterContext>();
 			builder.UseSqlite("Filename=:memory:", x => x.MigrationsAssembly(typeof(OperationMessageCenterContextSQLite).Assembly.FullName));
 			return new OperationMessageCenterContextSQLite(builder.Options);
 		}

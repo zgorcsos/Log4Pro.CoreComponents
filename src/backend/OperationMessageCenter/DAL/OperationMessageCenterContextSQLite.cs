@@ -14,7 +14,7 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter.DAL
     public class OperationMessageCenterContextSQLite : OperationMessageCenterContext
 	{
 		public OperationMessageCenterContextSQLite(
-			DbContextOptions options) : base(options)
+			DbContextOptions<OperationMessageCenterContext> options) : base(options)
 		{
 		}
 	}

@@ -153,16 +153,28 @@ namespace Log4Pro.CoreComponents
 				var config = VSettings.GetAppSettingConfiguration(configuration);
 				if (services.Any(x => x.ServiceType == typeof(UnitTestEnvironment)))
 				{
-
 					var inMemorySqlite = new SqliteConnection("Data Source=:memory:");
 					inMemorySqlite.Open();
-					services.AddDbContext<SettingContextSQLite>(options => 
+					services.AddDbContext<SettingContextSQLite>(options =>
+						options.UseSqlite(inMemorySqlite, x =>
+						{
+							x.MigrationsAssembly(typeof(SettingContextSQLite).Assembly.FullName);
+							x.MigrationsHistoryTable("__EFMigrationsHistory", SettingContextSQLite.DB_SCHEMA);
+						}
+						));
+					// Must register as SettingContext too! So the service provider can resolve the DbContextOptions<SettingContext> type too for SettingContextSQLite constructor parameter injection.
+					services.AddDbContext<SettingContext>(options =>
 						options.UseSqlite(inMemorySqlite, x => x.MigrationsAssembly(typeof(SettingContext).Assembly.FullName)));
 				}
 				else
 				{
 					services.AddDbContext<SettingContext>(options =>
-						options.UseSqlServer(configuration.GetConnectionString(config.UsedConnectionString)));
+						options.UseSqlServer(configuration.GetConnectionString(config.UsedConnectionString), x =>
+                        {
+							x.MigrationsAssembly(typeof(SettingContext).Assembly.FullName);
+							x.MigrationsHistoryTable("__EFMigrationsHistory", SettingContext.DB_SCHEMA);
+						}
+						));
 				}
 				services.AddCache<ManagedMemoryCache>();
 				services.AddSingleton(typeof(VSettings));
@@ -177,27 +189,41 @@ namespace Log4Pro.CoreComponents
 		/// <returns></returns>
 		public static IServiceCollection AddOperationMessageCenter(this IServiceCollection services, IConfiguration configuration)
 		{
-			if (!services.Any(x => x.ImplementationType == typeof(OperationMessageServer) && x.Lifetime == ServiceLifetime.Singleton))
+			if (!services.Any(x => x.ImplementationType == typeof(OperationMessageService) && x.Lifetime == ServiceLifetime.Singleton))
 			{
 				if (configuration == null)
 				{
 					configuration = (IConfiguration)services.FirstOrDefault(x => x.ServiceType == typeof(IConfiguration)).ImplementationInstance;
 				}
-				var config = OperationMessageServer.GetAppSettingConfiguration(configuration);
+				var config = OperationMessageService.GetAppSettingConfiguration(configuration);
 				if (services.Any(x => x.ServiceType == typeof(UnitTestEnvironment)))
 				{
+					// in unit test environment
 					var inMemorySqlite = new SqliteConnection("Data Source=:memory:");
 					inMemorySqlite.Open();
 					services.AddDbContext<OperationMessageCenterContextSQLite>(options =>
+						options.UseSqlite(inMemorySqlite, x =>
+						{
+							x.MigrationsAssembly(typeof(OperationMessageCenterContextSQLite).Assembly.FullName);
+							x.MigrationsHistoryTable("__EFMigrationsHistory", OperationMessageCenterContextSQLite.DB_SCHEMA);
+						}
+						));
+					// Must register as OperationMessageCenterContext too! So the service provider can resolve the DbContextOptions<OperationMessageCenterContext> type too for OperationMessageCenterContextSQLite constructor parameter injection.
+					services.AddDbContext<OperationMessageCenterContext>(options =>
 						options.UseSqlite(inMemorySqlite, x => x.MigrationsAssembly(typeof(OperationMessageCenterContext).Assembly.FullName)));
 				}
 				else
 				{
 					services.AddDbContext<OperationMessageCenterContext>(options =>
-						options.UseSqlServer(configuration.GetConnectionString(config.UsedConnectionString)));
+						options.UseSqlServer(configuration.GetConnectionString(config.UsedConnectionString), x =>
+						{
+							x.MigrationsAssembly(typeof(OperationMessageCenterContext).Assembly.FullName);
+							x.MigrationsHistoryTable("__EFMigrationsHistory", OperationMessageCenterContext.DB_SCHEMA);
+						}
+						));
 				}
 				services.AddCache<ManagedMemoryCache>();
-				services.AddSingleton(typeof(OperationMessageServer));
+				services.AddSingleton(typeof(OperationMessageService));
 				services.AddTransient(typeof(OperationMessageWriter));
 			}
 			return services;

@@ -3,7 +3,7 @@
 namespace Log4Pro.CoreComponents.OperationMessageCenter.Internals
 {
 	/// <summary>
-	/// App setting section for VSetting componnent
+	/// App setting section for OperationMessageCenter componnent
 	/// </summary>
 	internal class OperationMessageCenterAppSettings
 	{

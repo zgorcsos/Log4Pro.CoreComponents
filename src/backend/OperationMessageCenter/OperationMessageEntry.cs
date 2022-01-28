@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Log4Pro.CoreComponents.OperationMessageCenter
 {
 	/// <summary>
-	/// Egy üzenet bejegyzés
+	/// An operation message entry
 	/// </summary>
 	public class OperationMessageEntry
 	{
@@ -22,37 +22,37 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
 		public DateTime TimeStamp { get; set; }
 
 		/// <summary>
-		/// Module, amihez tartozik
+		/// Module identifier
 		/// </summary>
 		public string Module { get; set; }
 
 		/// <summary>
-		/// Instance, amihez tartozik
+		/// Instance identifier
 		/// </summary>
 		public string Instance { get; set; }
 
 		/// <summary>
-		/// Egyéb azonosító a megoldásfüggő kategorizáláshoz
+		/// Other identifier
 		/// </summary>
 		public string OtherFilter { get; set; }
 
 		/// <summary>
-		/// Üzenet ketegoriája
+		/// Category of message
 		/// </summary>
 		public MessageCategory MessageCategory { get; set; }
 
 		/// <summary>
-		/// Üzenet szövege
+		/// The message body (human readable text)
 		/// </summary>
 		public string Message { get; set; }
 
 		/// <summary>
-		/// Üzeneteket összefogó azonosító
+		/// The tread id brings together related operation messages.
 		/// </summary>
 		public string Thread { set; get; }
 
 		/// <summary>
-		/// További az üzenethez tartozó adatok
+		/// More detailed informations as list of key value pairs
 		/// </summary>
 		public List<KeyValuePair<string, string>> AdditionalDatas { get; } = new List<KeyValuePair<string, string>>();
 	}

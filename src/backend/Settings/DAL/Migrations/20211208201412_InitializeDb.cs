@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
+namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
 {
-    public partial class InitilaizeDb : Migration
+    public partial class InitializeDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,18 +15,18 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
                 schema: "settings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Changer = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    TimeStamp = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ModuleKey = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    InstanceOrUserKey = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    SettingKey = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
-                    Version = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    OperationType = table.Column<int>(type: "INTEGER", nullable: false),
-                    To = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    From = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Changer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModuleKey = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    InstanceOrUserKey = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    SettingKey = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Version = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    OperationType = table.Column<int>(type: "int", nullable: false),
+                    To = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    From = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,16 +38,16 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
                 schema: "settings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ModuleKey = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    InstanceOrUserKey = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    Key = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Value = table.Column<string>(type: "TEXT", nullable: false),
-                    DefaultValue = table.Column<string>(type: "TEXT", nullable: false),
-                    Options = table.Column<string>(type: "TEXT", nullable: true),
-                    Version = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ModuleKey = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    InstanceOrUserKey = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DefaultValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Options = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -113,7 +113,8 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
                 schema: "settings",
                 table: "Settings",
                 columns: new[] { "ModuleKey", "InstanceOrUserKey", "Key" },
-                unique: true);
+                unique: true,
+                filter: "[ModuleKey] IS NOT NULL AND [InstanceOrUserKey] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_Version",
