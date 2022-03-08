@@ -36,7 +36,7 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter.DAL
 		/// <summary>
 		/// Operation messages
 		/// </summary>
-		internal DbSet<OperationMessage> OperationMessages { get; set; }
+		public DbSet<OperationMessage> OperationMessages { get; set; }
 
         /// <summary>
         /// Aditional data of operation message
