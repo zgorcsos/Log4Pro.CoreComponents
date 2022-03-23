@@ -7,13 +7,14 @@
     <Company>Vonalkód Rendszerház Kft.</Company>
     <Description>Usefull simple basic components into ASP.Net backend as ASP.Net services for modern web deveopment.</Description>
     <Copyright>Copyright © Vonalkód Rendszerház Kft. 2021-present</Copyright>
-    <PackageProjectUrl>TODO: add git repo documentation url here</PackageProjectUrl>
-    <RepositoryType>own gitlab server</RepositoryType>
+    <PackageProjectUrl>https://github.com/zgorcsos/Log4Pro.CoreComponents</PackageProjectUrl>
+    <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Net5+ ASP.NET</PackageTags>
-    <PackageReleaseNotes>Beta release</PackageReleaseNotes>
+    <PackageReleaseNotes>First edition</PackageReleaseNotes>
     <Version>1.0.0</Version>
     <PackageIcon>serviceicon.png</PackageIcon>
     <PackageId>Log4Pro.CoreComponents</PackageId>
+    <RepositoryUrl>https://github.com/zgorcsos/Log4Pro.CoreComponents</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
