@@ -14,7 +14,7 @@ namespace Log4Pro.CoreComponents.Caching.Providers.ManagedMemory
 		/// <inheritdoc/>
 		public void Publish<TStoredObject>(string dataId, TStoredObject value)
 		{
-			_cache.AddOrUpdate(dataId, value, UpdateValueFactory);
+			_cache[dataId] = value;
 		}
 
 		/// <inheritdoc/>
@@ -31,11 +31,6 @@ namespace Log4Pro.CoreComponents.Caching.Providers.ManagedMemory
 		public void Remove(string dataId)
 		{
 			_cache.Remove(dataId, out var _);
-		}
-
-		private object UpdateValueFactory(string key, object value)
-		{
-			return value;
 		}
 
 		private readonly ConcurrentDictionary<string, object> _cache = new();
