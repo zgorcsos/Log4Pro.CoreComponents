@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using Log4Pro.CoreComponents.Settings.Internals;
+using Microsoft.Data.Sqlite;
 
 namespace Log4Pro.CoreComponents.Settings.DAL
 {
@@ -27,10 +28,12 @@ namespace Log4Pro.CoreComponents.Settings.DAL
 		public SettingContextSQLite CreateDbContext(string[] args)
 		{
 			var builder = new DbContextOptionsBuilder<SettingContext>();
-			builder.UseSqlite("Filename=:memory:", x =>
+			var inMemorySqlite = new SqliteConnection("Data Source=:memory:");
+			inMemorySqlite.Open();
+			builder.UseSqlite(inMemorySqlite, x =>
 			{
 				x.MigrationsAssembly(typeof(SettingContextSQLite).Assembly.FullName);
-				x.MigrationsHistoryTable("__EFMigrationsHistory", SettingContextSQLite.DB_SCHEMA);
+				//x.MigrationsHistoryTable("__EFMigrationsHistory", SettingContextSQLite.DB_SCHEMA);
 			});
 			return new SettingContextSQLite(builder.Options);
 		}

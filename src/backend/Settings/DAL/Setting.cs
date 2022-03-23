@@ -11,6 +11,7 @@ namespace Log4Pro.CoreComponents.Settings.DAL
 	[Index(nameof(InstanceOrUserKey))]
 	[Index(nameof(Key))]
 	[Index(nameof(Version))]
+    [Index(nameof(UserLevelSettings))]
 	[Index(nameof(ModuleKey), nameof(InstanceOrUserKey), nameof(Key), IsUnique = true)]
 	[Table(nameof(SettingContext.Settings), Schema = SettingContext.DB_SCHEMA)]
     public class Setting
@@ -45,6 +46,9 @@ namespace Log4Pro.CoreComponents.Settings.DAL
         /// </summary>
         public string Description { get; set; }
 
+        [MaxLength(1000)]
+        public string Title { get; set; }
+
         /// <summary>
         /// Current value of the setting as JSON serialized object.
         /// </summary>
@@ -52,20 +56,17 @@ namespace Log4Pro.CoreComponents.Settings.DAL
         public string Value { get; set; }
 
         /// <summary>
-        /// Default value of the setting as JSON serialized object. (Defined by code.) 
+        /// Gets or sets a value indicating whether [user level settings].
         /// </summary>
-        [Required]
-        public string DefaultValue { get; set; }
+        /// <value>
+        ///   <c>true</c> if [user level settings]; otherwise, <c>false</c>.
+        /// </value>        
+        public bool UserLevelSettings { get; set; }
 
         /// <summary>
-        /// The posible options, as JSON serialized array object, if posible value of this setting is finite discrate values.
+        /// The version of setting.
         /// </summary>
-        public string Options { get; set; }
-
-		/// <summary>
-		/// The version of setting.
-		/// </summary>
-		[MaxLength(100)]
+        [MaxLength(100)]
 		public string Version { get; set; }
     }
 }

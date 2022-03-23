@@ -21,10 +21,15 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 		/// </summary>
 		public string Description { get; set; }
 
-		/// <summary>
-		/// Alapértelmezett érték
-		/// </summary>
-		public string DefaultValue { get; set; }
+
+        public string Title { get; set; }
+
+        public object DefaultValue { get; set; }
+
+        /// <summary>
+        /// Alapértelmezett érték
+        /// </summary>
+        public string DefaultValueAsJsonString { get; set; }
 
 		/// <summary>
 		/// Ha a beáálítás diszkrét értékeket vehet fel, akkor ez képviseli a lehetséges értékek választéklistáját 

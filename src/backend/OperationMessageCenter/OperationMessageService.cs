@@ -97,7 +97,7 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
                     }
                     return true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     try
                     {

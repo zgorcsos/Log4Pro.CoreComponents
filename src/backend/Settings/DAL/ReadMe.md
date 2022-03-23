@@ -8,5 +8,5 @@ Add-Migration -Name YourMigrationName -Context SettingContext -StartupProject Lo
 
 The correct command for SQLiteSettingContext:
 `
-Add-Migration -Name YourMigrationName -Context SQLiteSettingContext -StartupProject Log4Pro.CoreComponents -OutputDir Settings/DAL/Migrations/SQLite
+Add-Migration -Name YourMigrationName -Context SettingContextSQLite -StartupProject Log4Pro.CoreComponents -OutputDir Settings/DAL/Migrations/SQLite
 `

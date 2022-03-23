@@ -11,6 +11,12 @@
         /// </summary>
         public string Description { get; set; }
 
+
+        /// <summary>
+        /// This was the original title of deleted setting
+        /// </summary>
+        public string Title { get; set; }
+
         /// <summary>
         /// This was the value of deleted setting
         /// </summary>

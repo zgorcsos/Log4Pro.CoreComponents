@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Log4Pro.CoreComponents.Settings.Internals
+namespace Log4Pro.CoreComponents.Settings
 {
-	internal class SettingAddress
+	public class SettingAddress
 	{
 		/// <summary>
 		/// Id of module to which this setting

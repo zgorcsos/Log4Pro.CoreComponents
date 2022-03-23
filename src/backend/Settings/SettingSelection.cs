@@ -16,10 +16,15 @@ namespace Log4Pro.CoreComponents.Settings
 		/// </summary>
 		public string Value { get; set; }
 
-		/// <summary>
-		/// The description.
-		/// </summary>
-		public string Description { get; set; }
+        /// <summary>
+        /// The title.
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// The description.
+        /// </summary>
+        public string Description { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this instance is default.

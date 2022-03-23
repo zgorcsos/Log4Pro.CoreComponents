@@ -3,59 +3,57 @@ using System;
 using Log4Pro.CoreComponents.Settings.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
+namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
 {
-    [DbContext(typeof(SettingContext))]
-    partial class SettingContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SettingContextSQLite))]
+    [Migration("20220321130655_FixSettingEntity")]
+    partial class FixSettingEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.15");
 
             modelBuilder.Entity("Log4Pro.CoreComponents.Settings.DAL.Setting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("InstanceOrUserKey")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ModuleKey")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("UserLevelSettings")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Version")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -70,8 +68,7 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
                     b.HasIndex("Version");
 
                     b.HasIndex("ModuleKey", "InstanceOrUserKey", "Key")
-                        .IsUnique()
-                        .HasFilter("[ModuleKey] IS NOT NULL AND [InstanceOrUserKey] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Settings", "settings");
                 });
@@ -80,36 +77,35 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Changer")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("InstanceOrUserKey")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ModuleKey")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("OperationType")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("OperationType");
 
                     b.Property<string>("SettingKey")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Version")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -136,7 +132,7 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
 
                     b.Property<string>("To")
                         .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("To");
 
                     b.ToTable("SettingHistories", "settings");
@@ -149,15 +145,15 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
                     b.HasBaseType("Log4Pro.CoreComponents.Settings.DAL.SettingHistory");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("From")
                         .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("From");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.ToTable("SettingHistories", "settings");
 
@@ -170,12 +166,12 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations
 
                     b.Property<string>("From")
                         .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("From");
 
                     b.Property<string>("To")
                         .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("To");
 
                     b.ToTable("SettingHistories", "settings");

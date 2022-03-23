@@ -9,15 +9,18 @@ using Log4Pro.CoreComponents.Settings;
 
 namespace Log4Pro.CoreComponents.Test.Settings
 {
+	[Title(nameof(TestSettingClass))]
 	[Description(nameof(TestSettingClass))]
 	[ModuleKey(MODULE_NAME)]
 	class TestSettingClass
 	{
+		[Title(nameof(ReaderCheckInterval))]
 		[Description(nameof(ReaderCheckInterval))]
 		[SettingType(typeof(int))]
 		[DefaultValue(READER_CHECK_INTERVAL_DEFAULTVALUE)]
 		public class ReaderCheckInterval { }
 
+		[Title(nameof(TargetSAP))]
 		[Description(nameof(TargetSAP))]
 		[SettingType(typeof(string))]
 		public class TargetSAP 
@@ -28,11 +31,13 @@ namespace Log4Pro.CoreComponents.Test.Settings
 			}
 		}
 
+		[Title(nameof(WarningForEmptyField))]
 		[Description(nameof(WarningForEmptyField))]
 		[SettingType(typeof(bool))]
 		[DefaultValue(WARNING_FOR_EMPTY_FIELD_DEFAULTVALUE)]
 		public class WarningForEmptyField { }
 
+		[Title(nameof(Workstations))]
 		[Description(nameof(Workstations))]
 		[SettingType(typeof(List<WorkstationIdBinding>))]
 		[Version(WORKSTATIONS_VERSION)]
@@ -44,15 +49,19 @@ namespace Log4Pro.CoreComponents.Test.Settings
 			}
 		}
 
+		[Title(nameof(UseAuthentication))]
 		[Description(nameof(UseAuthentication))]
 		[SettingType(typeof(bool))]
 		[DefaultValue(USE_AUTHENTICATION_DEFAULTVALUE)]
 		public class UseAuthentication
 		{
+			[Title(nameof(TechnicalUser))]
 			[Description(nameof(TechnicalUser))]
 			[DefaultValue(TECHNICAL_USER_DEFAULTVALUE)]
+			[SettingType(typeof(string))]
 			public class TechnicalUser { }
 
+			[Title(nameof(Password))]
 			[Description(nameof(Password))]
 			[SettingType(typeof(string))]
 			[DefaultValue(PASSWORD_DEFAULTVALUE)]
@@ -60,10 +69,17 @@ namespace Log4Pro.CoreComponents.Test.Settings
 			public class Password { }
 		}
 
+		[Title(nameof(TypeOfReader))]
 		[Description(nameof(TypeOfReader))]
 		[SettingType(typeof(ReaderType))]
 		[SettingSelections(typeof(ReaderType))]
 		public class TypeOfReader { }
+
+		[Title(nameof(DoubleNumber))]
+		[Description(nameof(DoubleNumber))]
+		[SettingType(typeof(double))]
+		[DefaultValue(0.12345)]
+		public class DoubleNumber { }
 
 		public const int READER_CHECK_INTERVAL_DEFAULTVALUE = 10;
 		public const string TARGET_SAP_DEFAULTVALUE = "ERT";

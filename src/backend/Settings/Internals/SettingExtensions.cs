@@ -55,6 +55,17 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 			return description;
 		}
 
+		public static string GetTitle(this Type settingDefinition)
+		{
+			string title = string.Empty;
+			var attribute = settingDefinition.GetCustomAttributes<TitleAttribute>().FirstOrDefault();
+			if (attribute != null)
+			{
+				title = attribute.Title;
+			}
+			return title;
+		}
+
 		/// <summary>
 		/// Gets the version of setting from setting defination.
 		/// (If Version attribute presents, else gets null.)
@@ -73,7 +84,7 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 		}
 
 		/// <summary>
-		/// Visszadja a beállításhoz definiált típust, ha nincs megadva, akkor string
+		/// Visszadja a beállításhoz definiált típust, ha nincs megadva, akkor null
 		/// </summary>
 		/// <param name="settingDefinition">A definiciót hordozó típus</param>
 		/// <returns>A beállítás típusa</returns>
@@ -84,7 +95,7 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 			{
 				return attribute.Type;
 			}
-			return typeof(string);
+			return null;
 		}
 
 		/// <summary>
@@ -139,15 +150,14 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 		/// </summary>
 		/// <param name="settingDefinition"></param>
 		/// <returns></returns>
-		public static List<SettingSelection> GetSettingSelections(this Type settingDefinition)
+		public static IEnumerable<SettingSelection> GetSettingSelections(this Type settingDefinition)
 		{
-			var settingSelections = new List<SettingSelection>();
 			var attribute = settingDefinition.GetCustomAttributes<SettingSelectionsAttribute>().FirstOrDefault();
 			if (attribute != null)
 			{
-				settingSelections = attribute.SettingSelections;
+				return attribute.SettingSelections;
 			}
-			return settingSelections;
+			return null;
 		}
 
 		/// <summary>

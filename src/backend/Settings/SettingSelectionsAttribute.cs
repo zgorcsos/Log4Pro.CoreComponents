@@ -29,7 +29,7 @@ namespace Log4Pro.CoreComponents.Settings
 		/// <value>
 		/// The setting selections.
 		/// </value>
-		public List<SettingSelection> SettingSelections
+		public IEnumerable<SettingSelection> SettingSelections
 		{
 			get
 			{
@@ -43,9 +43,11 @@ namespace Log4Pro.CoreComponents.Settings
 						continue;
 					}
 					var descriptionAttribute = field.GetCustomAttributes<DescriptionAttribute>().FirstOrDefault();
+					var titleAttribute = field.GetCustomAttributes<TitleAttribute>().FirstOrDefault();
 					var settingSelection = new SettingSelection()
 					{
 						Value = field.Name,
+						Title = titleAttribute != null ? titleAttribute.Title : field.Name,
 						Description = descriptionAttribute != null ? descriptionAttribute.Description : string.Empty,
 						IsDefault = false,
 					};
@@ -54,9 +56,8 @@ namespace Log4Pro.CoreComponents.Settings
 						settingSelection.IsDefault = field.GetCustomAttributes<IsDefaultAttribute>().FirstOrDefault() != null;
 						defaultSetted = settingSelection.IsDefault;
 					}
-					selections.Add(settingSelection);
+					yield return settingSelection;
 				}
-				return selections;
 			}
 		}
 

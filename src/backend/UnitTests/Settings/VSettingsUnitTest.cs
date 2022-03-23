@@ -103,6 +103,13 @@ namespace Log4Pro.CoreComponents.Test.Settings
 				typeof(TestSettingClass.UseAuthentication.TechnicalUser).GetDescription());
 		}
 
+		[Fact(DisplayName = "GetTitle extension method (for Type) works well.")]
+		public void GetTitleExtensionWorksWell()
+		{
+			Assert.Equal($"{nameof(TestSettingClass.UseAuthentication.TechnicalUser)}",
+				typeof(TestSettingClass.UseAuthentication.TechnicalUser).GetTitle());
+		}
+
 		[Fact(DisplayName = "GetVersion extension method (for Type) works well.")]
 		public void GetVersionExtensionWorksWell()
 		{
@@ -138,24 +145,28 @@ namespace Log4Pro.CoreComponents.Test.Settings
 			{
 				new()
 				{
+					Title = nameof(ReaderType.Single),
 					Description = nameof(ReaderType.Single),
 					IsDefault = true,
 					Value = ReaderType.Single.ToString(),
 				},
 				new()
 				{
+					Title = nameof(ReaderType.Multiple),
 					Description = nameof(ReaderType.Multiple),
 					IsDefault = false,
 					Value = ReaderType.Multiple.ToString(),
 				},
 			};
 			var actual = typeof(TestSettingClass.TypeOfReader).GetSettingSelections();
-			Assert.Equal(expected[0].Description, actual[0].Description);
-			Assert.Equal(expected[0].IsDefault, actual[0].IsDefault);
-			Assert.Equal(expected[0].Value, actual[0].Value);
-			Assert.Equal(expected[1].Description, actual[1].Description);
-			Assert.Equal(expected[1].IsDefault, actual[1].IsDefault);
-			Assert.Equal(expected[1].Value, actual[1].Value);
+			Assert.Equal(expected[0].Title, actual.ToArray()[0].Title);
+			Assert.Equal(expected[0].Description, actual.ToArray()[0].Description);
+			Assert.Equal(expected[0].IsDefault, actual.ToArray()[0].IsDefault);
+			Assert.Equal(expected[0].Value, actual.ToArray()[0].Value);
+			Assert.Equal(expected[1].Title, actual.ToArray()[1].Title);
+			Assert.Equal(expected[1].Description, actual.ToArray()[1].Description);
+			Assert.Equal(expected[1].IsDefault, actual.ToArray()[1].IsDefault);
+			Assert.Equal(expected[1].Value, actual.ToArray()[1].Value);
 		}
 
 		[Fact(DisplayName = "GetModuleName extension method (for Type) works well.")]
@@ -304,7 +315,6 @@ namespace Log4Pro.CoreComponents.Test.Settings
 				Assert.Single(settingRecords);
 				var settingRecord = settingRecords.FirstOrDefault();
 				Assert.NotNull(settingRecord);
-				Assert.Equal(TestSettingClass.TARGET_SAP_DEFAULTVALUE, JsonConvert.DeserializeObject<string>(settingRecord.DefaultValue));
 				Assert.Equal(value2, JsonConvert.DeserializeObject<string>(settingRecord.Value));
 				var createRecords = db.Creates.Where(x => x.ModuleKey == a.ModuleKey && x.InstanceOrUserKey == a.InstanceOrUserKey && x.SettingKey == a.Key);
 				Assert.Single(createRecords);
@@ -348,6 +358,46 @@ namespace Log4Pro.CoreComponents.Test.Settings
 				Assert.True(s.GetDbContext(scope) is SettingContext);
 			}
 		}
+
+		[Fact(DisplayName = "Get all available setting defination class.")]
+		public void GetAllSettingDefinationTypeWorkWell()
+        {
+			var s = GetService<VSettings>();
+			var t = s.GetAllSettingDefinationType();
+			Assert.Contains(t, x => x.FullName == typeof(TestSettingClass).FullName);
+			Assert.Single(t);
+		}
+
+		[Fact(DisplayName = "Build full settingtree function works well.")]
+		public void GetFullSettingTree()
+		{
+			var s = GetService<VSettings>();
+			s.InitializeMe<TestSettingClass>();
+			var t = s.BuildAllSettingTree();
+			Assert.Single(t);
+			Assert.Contains(t[0].Childrens, x => x.Title == nameof(TestSettingClass.DoubleNumber));
+			Assert.Contains(t[0].Childrens, x => x.Title == nameof(TestSettingClass.ReaderCheckInterval));
+			Assert.Contains(t[0].Childrens, x => x.Title == nameof(TestSettingClass.TargetSAP));
+			Assert.Contains(t[0].Childrens, x => x.Title == nameof(TestSettingClass.TypeOfReader));
+			Assert.Contains(t[0].Childrens, x => x.Title == nameof(TestSettingClass.UseAuthentication));
+			Assert.Contains(t[0].Childrens, x => x.Title == nameof(TestSettingClass.Workstations));
+			var nodeWithSubTree = t[0].Childrens.FirstOrDefault(x => x.Title == nameof(TestSettingClass.UseAuthentication));
+			Assert.NotNull(nodeWithSubTree);
+			Assert.NotEmpty(nodeWithSubTree.Childrens);
+		}
+
+		[Fact(DisplayName = "Store setting value function works well (both cache and persist side).")]
+		public void StoreSettingValueFromUIWorksWell()
+		{
+			var s = GetService<VSettings>();
+			s.InitializeMe<TestSettingClass>();
+			s.StoreSettingValueFromUI("Log4Pro.CoreComponents.Test.Settings.TestSettingClass+DoubleNumber, Log4Pro.CoreComponents.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+				"System.Double, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "3.14", null, "TESTER");
+			var a = s.GetAddress(typeof(TestSettingClass.DoubleNumber), null);
+			Assert.Equal(3.14, s.GetSettingValueFromCache<double>(a));
+			Assert.Equal(3.14, s.GetSettingValueFromDb<double>(a));
+		}
+
 		private readonly string _testInstanceId = Guid.NewGuid().ToString();
 	}
 }

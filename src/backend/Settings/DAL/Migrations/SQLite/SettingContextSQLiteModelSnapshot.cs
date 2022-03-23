@@ -14,17 +14,13 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.10");
+                .HasAnnotation("ProductVersion", "5.0.15");
 
             modelBuilder.Entity("Log4Pro.CoreComponents.Settings.DAL.Setting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("DefaultValue")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -42,8 +38,12 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Options")
+                    b.Property<string>("Title")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("UserLevelSettings")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -60,6 +60,8 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
                     b.HasIndex("Key");
 
                     b.HasIndex("ModuleKey");
+
+                    b.HasIndex("UserLevelSettings");
 
                     b.HasIndex("Version");
 
@@ -147,6 +149,9 @@ namespace Log4Pro.CoreComponents.Settings.DAL.Migrations.SQLite
                         .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("TEXT")
                         .HasColumnName("From");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
 
                     b.ToTable("SettingHistories", "settings");
 
