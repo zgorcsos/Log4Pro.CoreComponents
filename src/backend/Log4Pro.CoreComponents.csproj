@@ -11,7 +11,7 @@
     <RepositoryType>own gitlab server</RepositoryType>
     <PackageTags>Net5+ ASP.NET</PackageTags>
     <PackageReleaseNotes>Beta release</PackageReleaseNotes>
-    <Version>1.0.0-beta8</Version>
+    <Version>1.0.0</Version>
     <PackageIcon>serviceicon.png</PackageIcon>
     <PackageId>Log4Pro.CoreComponents</PackageId>
   </PropertyGroup>
