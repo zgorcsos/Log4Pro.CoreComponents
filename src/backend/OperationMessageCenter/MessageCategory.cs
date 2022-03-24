@@ -1,18 +1,13 @@
 ﻿using Log4Pro.CoreComponents.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Log4Pro.CoreComponents.OperationMessageCenter
 {
-	/// <summary>
-	/// Defined operation message category
-	/// </summary>
-	[JsonConverter(typeof(StringEnumConverter))]
+    /// <summary>
+    /// Defined operation message category
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
 	public enum MessageCategory
 	{
 		/// <summary>
@@ -32,6 +27,7 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
 		/// </summary>
 		[Title("Figyelmeztetések")]
 		[Description("Minden hiba és figyelmeztetés feljegyzésre kerül.")]
+		[IsDefault]
 		Warning,
 		/// <summary>
 		/// Informális üzenet a működésről
