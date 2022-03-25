@@ -14,11 +14,11 @@ namespace Log4Pro.CoreComponents.Settings
 
         public string DataType { get; set; }
 
-        public object PersistedValue { get; set; }
+        public string PersistedValue { get; set; }
 
-        public object CachedValue { get; set; }
+        public string CachedValue { get; set; }
 
-        public object DefaultValue { get; set; }
+        public string DefaultValue { get; set; }
 
         public string TypeId { get; set; }
 
