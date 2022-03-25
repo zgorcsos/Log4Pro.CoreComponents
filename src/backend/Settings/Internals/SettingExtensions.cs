@@ -67,7 +67,21 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 		}
 
 		/// <summary>
-		/// Gets the version of setting from setting defination.
+		/// Determines whether this level [is user level].
+		/// User level settings are never initialize & can't control across settings UI.
+		/// </summary>
+		/// <param name="settingDefinition">The setting definition.</param>
+		/// <returns>
+		///   <c>true</c> if [is user level] [the specified setting definition]; otherwise, <c>false</c>.
+		/// </returns>
+		public static bool IsUserLevel(this Type settingDefinition)
+		{
+			var attribute = settingDefinition.GetCustomAttributes<UserLevelAttribute>().FirstOrDefault();
+			return attribute != null;
+		}
+
+		/// <summary>
+		/// Gets the version of setting from setting definition.
 		/// (If Version attribute presents, else gets null.)
 		/// </summary>
 		/// <param name="settingDefinition">The setting definition.</param>
@@ -251,7 +265,7 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 		/// <returns></returns>
 		public static bool Sensitive(this Type settingType)
 		{
-			return settingType.GetCustomAttribute<SensitiveData>() != null;
+			return settingType.GetCustomAttribute<SensitiveDataAttribute>() != null;
 		}
 
 		/// <summary>
@@ -289,7 +303,7 @@ namespace Log4Pro.CoreComponents.Settings.Internals
 		}
 
 		/// <summary>
-		/// Gets all nested types with setting key under currentType defination
+		/// Gets all nested types with setting key under currentType definition
 		/// </summary>
 		/// <param name="currentType">Type of the current.</param>
 		/// <returns></returns>
