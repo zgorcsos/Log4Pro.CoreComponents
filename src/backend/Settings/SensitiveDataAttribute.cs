@@ -11,12 +11,12 @@ namespace Log4Pro.CoreComponents.Settings
 	/// </summary>
 	/// <seealso cref="System.Attribute" />
 	[AttributeUsage(AttributeTargets.Class)]
-	public class SensitiveData : Attribute
+	public class SensitiveDataAttribute : Attribute
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SensitiveData"/> class.
 		/// </summary>
-		public SensitiveData()
+		public SensitiveDataAttribute()
 		{
 		}
 	}
