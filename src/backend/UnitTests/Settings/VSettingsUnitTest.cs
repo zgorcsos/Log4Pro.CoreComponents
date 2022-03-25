@@ -359,11 +359,11 @@ namespace Log4Pro.CoreComponents.Test.Settings
 			}
 		}
 
-		[Fact(DisplayName = "Get all available setting defination class.")]
-		public void GetAllSettingDefinationTypeWorkWell()
+		[Fact(DisplayName = "Get all available setting definition class.")]
+		public void GetAllSettingDefinitionTypeWorkWell()
         {
 			var s = GetService<VSettings>();
-			var t = s.GetAllSettingDefinationType();
+			var t = s.GetAllSettingDefinitionType();
 			Assert.Contains(t, x => x.FullName == typeof(TestSettingClass).FullName);
 			Assert.Single(t);
 		}
@@ -384,6 +384,34 @@ namespace Log4Pro.CoreComponents.Test.Settings
 			var nodeWithSubTree = t[0].Childrens.FirstOrDefault(x => x.Title == nameof(TestSettingClass.UseAuthentication));
 			Assert.NotNull(nodeWithSubTree);
 			Assert.NotEmpty(nodeWithSubTree.Childrens);
+		}
+
+		[Fact(DisplayName = "The user level settings are left out from initializing.")]
+		public void UserLevelsLeftOutInitialize()
+        {
+			var s = GetService<VSettings>();
+			s.InitializeMe<TestSettingClass>();
+			Assert.Throws<CoreComponents.Caching.NotFoundException>(() => s.GetSettingValueFromCache<string>(s.GetAddress(typeof(TestSettingClass.UserLevelSample), null)));
+			Assert.Throws<CoreComponents.Settings.NotFoundException>(() => s.GetSettingValueFromDb<string>(s.GetAddress(typeof(TestSettingClass.UserLevelSample), null)));
+			s.InitializeMe<UserLevelSettings>();
+			Assert.Throws<CoreComponents.Caching.NotFoundException>(() => s.GetSettingValueFromCache<string>(s.GetAddress(typeof(UserLevelSettings.UserStyle), null)));
+			Assert.Throws<CoreComponents.Settings.NotFoundException>(() => s.GetSettingValueFromDb<string>(s.GetAddress(typeof(UserLevelSettings.UserStyle), null)));
+		}
+
+		[Fact(DisplayName = "The user level settings are left out from settings tree.")]
+		public void UserLevelsLeftOutTree()
+		{
+			var s = GetService<VSettings>();
+			var t = s.BuildAllSettingTree();
+			Assert.DoesNotContain(t[0].Childrens, x => x.Title == nameof(TestSettingClass.UserLevelSample));
+		}
+
+		[Fact(DisplayName = "The user level setting holder class are left out from settings tree.")]
+		public void UserLevelHolderClassLeftOutTree()
+		{
+			var s = GetService<VSettings>();
+			var t = s.BuildAllSettingTree(new List<string> { nameof(UserLevelSettings) });
+			Assert.Empty(t);
 		}
 
 		[Fact(DisplayName = "Store setting value function works well (both cache and persist side).")]

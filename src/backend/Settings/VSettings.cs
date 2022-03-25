@@ -121,15 +121,24 @@ namespace Log4Pro.CoreComponents.Settings
             _lock.Wait();
             try
             {
+                if (typeof(TSettingHolderType).IsUserLevel())
+                {
+                    return;
+                }
                 var moduleKeyAttribute = typeof(TSettingHolderType).GetCustomAttributes<ModuleKeyAttribute>().FirstOrDefault();
                 if (moduleKeyAttribute == null)
                 {
-                    throw new ArgumentException($"{nameof(ModuleKeyAttribute)} is mandantory for setting holder type!");
+                    throw new ArgumentException($"There is incomplete setting holder class definition: {typeof(TSettingHolderType).Name}! {nameof(ModuleKeyAttribute)} is mandantory for setting holder type!");
                 }
                 var holderDescriptionAttribute = typeof(TSettingHolderType).GetCustomAttributes<DescriptionAttribute>().FirstOrDefault();
                 if (holderDescriptionAttribute == null)
                 {
-                    throw new ArgumentException($"{nameof(DescriptionAttribute)} is mandantory for setting holder type!");
+                    throw new ArgumentException($"There is incomplete setting holder class definition: {typeof(TSettingHolderType).Name}! {nameof(DescriptionAttribute)} is mandantory for setting holder type!");
+                }
+                var typeTitleAttribute = typeof(TSettingHolderType).GetCustomAttributes<TitleAttribute>().FirstOrDefault();
+                if (typeTitleAttribute == null)
+                {
+                    throw new ArgumentException($"There is incomplete setting holder class definition: {typeof(TSettingHolderType).Name}! {nameof(TitleAttribute)} is mandantory for all setting type!");
                 }
                 foreach (var item in typeof(TSettingHolderType).GetNestedTypes())
                 {
@@ -144,7 +153,7 @@ namespace Log4Pro.CoreComponents.Settings
         }
 
         /// <summary>
-        /// Get the full setting tree from present senting defination for UI
+        /// Get the full setting tree from present senting definition for UI
         /// </summary>
         /// <param name="wantedModules">Only this moduls's settings</param>
         /// <param name="wantedInstances">Only this instances</param>
@@ -152,13 +161,13 @@ namespace Log4Pro.CoreComponents.Settings
         public List<SettingNode> BuildAllSettingTree(List<string> wantedModules = null, List<string> wantedInstances = null)
         {
             var tree = new List<SettingNode>();
-            var allPresentSettingType = GetAllSettingDefinationType();
+            var allPresentSettingType = GetAllSettingDefinitionType();
             if (wantedModules != null)
             {
                 allPresentSettingType = allPresentSettingType.Where(x => wantedModules.Contains(x.GetModuleName()));
             }
             foreach (var settingDeclaringType in allPresentSettingType.OrderBy(x => x.GetTitle()))
-            {
+            {   
                 var typeStartNode = new SettingNode { Title = settingDeclaringType.GetTitle(), Description = settingDeclaringType.GetDescription(), Childrens = new List<SettingNode>() };
                 var instances = GetMyInstances(settingDeclaringType.GetModuleName());
                 if (instances.Count() > 0)
@@ -238,11 +247,11 @@ namespace Log4Pro.CoreComponents.Settings
             }
         }
 
-        internal IEnumerable<Type> GetAllSettingDefinationType()
+        internal IEnumerable<Type> GetAllSettingDefinitionType()
         {
             return (from assembly in AppDomain.CurrentDomain.GetAssemblies()
                     from type in assembly.GetTypes()
-                    where Attribute.IsDefined(type, typeof(ModuleKeyAttribute))
+                    where Attribute.IsDefined(type, typeof(ModuleKeyAttribute)) && !Attribute.IsDefined(type, typeof(UserLevelAttribute))
                     select type).ToList();
         }
 
@@ -258,67 +267,70 @@ namespace Log4Pro.CoreComponents.Settings
 
         internal IEnumerable<SettingNode> BuildMySettingTree(Type settingType, string instance = null, SettingNode me = null)
         {
-            foreach (var nestedType in settingType.GetNestedTypes())
+            if (!settingType.IsUserLevel())
             {
-                var node = new SettingNode()
+                foreach (var nestedType in settingType.GetNestedTypes().Where(x => !x.IsUserLevel()))
                 {
-                    Title = nestedType.GetTitle(),
-                    Description = nestedType.GetDescription(),
-                };
-                if (nestedType.GetSettingType() != null)
-                {
-                    var settingValueType = nestedType.GetSettingType();
-                    var settingAddress = GetAddress(nestedType, instance);
-                    node.Me = new SettingViewModel()
+                    var node = new SettingNode()
                     {
-                        UniqueId = settingAddress.ToString(),
-                        Instance = settingAddress.InstanceOrUserKey,
-                        DataType = settingValueType.Name,
-                        TypeId = settingValueType.AssemblyQualifiedName,
-                        DefiningTypeId = nestedType.AssemblyQualifiedName,
-                        SensitiveData = nestedType.Sensitive(),
+                        Title = nestedType.GetTitle(),
+                        Description = nestedType.GetDescription(),
                     };
-                    if (!node.Me.SensitiveData)
+                    if (nestedType.GetSettingType() != null)
                     {
-                        // Cache side value
-                        try
+                        var settingValueType = nestedType.GetSettingType();
+                        var settingAddress = GetAddress(nestedType, instance);
+                        node.Me = new SettingViewModel()
                         {
-                            MethodInfo method = this.GetType().GetMethod(nameof(GetSettingValueFromCache), BindingFlags.NonPublic | BindingFlags.Instance);
-                            MethodInfo generic = method.MakeGenericMethod(nestedType.GetSettingType());
-                            node.Me.CachedValue = generic.Invoke(this, new object[] { settingAddress });
-                        }
-                        catch (Exception)
+                            UniqueId = settingAddress.ToString(),
+                            Instance = settingAddress.InstanceOrUserKey,
+                            DataType = settingValueType.Name,
+                            TypeId = settingValueType.AssemblyQualifiedName,
+                            DefiningTypeId = nestedType.AssemblyQualifiedName,
+                            SensitiveData = nestedType.Sensitive(),
+                        };
+                        if (!node.Me.SensitiveData)
                         {
-                            node.Me.CachedValue = null;
+                            // Cache side value
+                            try
+                            {
+                                MethodInfo method = this.GetType().GetMethod(nameof(GetSettingValueFromCache), BindingFlags.NonPublic | BindingFlags.Instance);
+                                MethodInfo generic = method.MakeGenericMethod(nestedType.GetSettingType());
+                                node.Me.CachedValue = JsonConvert.SerializeObject(generic.Invoke(this, new object[] { settingAddress })).Trim('"');
+                            }
+                            catch (Exception)
+                            {
+                                node.Me.CachedValue = null;
+                            }
+                            // Db side value
+                            try
+                            {
+                                MethodInfo method = this.GetType().GetMethod(nameof(GetSettingValueFromDb), BindingFlags.NonPublic | BindingFlags.Instance);
+                                MethodInfo generic = method.MakeGenericMethod(nestedType.GetSettingType());
+                                node.Me.PersistedValue = JsonConvert.SerializeObject(generic.Invoke(this, new object[] { settingAddress })).Trim('"');
+                            }
+                            catch (Exception)
+                            {
+                                node.Me.PersistedValue = null;
+                            }
+                            // default value
+                            MethodInfo defaultMethod = this.GetType().GetMethod(nameof(GetDefaultValue), BindingFlags.NonPublic | BindingFlags.Instance);
+                            MethodInfo defaultGeneric = defaultMethod.MakeGenericMethod(nestedType.GetSettingType());
+                            node.Me.DefaultValue = JsonConvert.SerializeObject(defaultGeneric.Invoke(this, new object[] { nestedType })).Trim('"');
+                            node.Me.Options = nestedType.GetSettingSelections();
                         }
-                        // Db side value
-                        try
+                        else
                         {
-                            MethodInfo method = this.GetType().GetMethod(nameof(GetSettingValueFromDb), BindingFlags.NonPublic | BindingFlags.Instance);
-                            MethodInfo generic = method.MakeGenericMethod(nestedType.GetSettingType());
-                            node.Me.PersistedValue = generic.Invoke(this, new object[] { settingAddress });
+                            Random rnd = new Random();
+                            var sensitiveDataValue = new string('*', rnd.Next(7, 13));
+                            node.Me.PersistedValue = sensitiveDataValue;
+                            node.Me.CachedValue = sensitiveDataValue;
+                            node.Me.DefaultValue = sensitiveDataValue;
                         }
-                        catch (Exception)
-                        {
-                            node.Me.PersistedValue = null;
-                        }
-                        // default value
-                        MethodInfo defaultMethod = this.GetType().GetMethod(nameof(GetDefaultValue), BindingFlags.NonPublic | BindingFlags.Instance);
-                        MethodInfo defaultGeneric = defaultMethod.MakeGenericMethod(nestedType.GetSettingType());
-                        node.Me.DefaultValue = defaultGeneric.Invoke(this, new object[] { nestedType });
-                        node.Me.Options = nestedType.GetSettingSelections();
                     }
-                    else
-                    {
-                        Random rnd = new Random();
-                        var sensitiveDataValue = new string('*', rnd.Next(7, 13));
-                        node.Me.PersistedValue = sensitiveDataValue;
-                        node.Me.CachedValue = sensitiveDataValue;
-                        node.Me.DefaultValue = sensitiveDataValue;
-                    }
+                    node.Childrens = BuildMySettingTree(nestedType, instance, node).OrderBy(x => x.Title).ToList();
+                    yield return node;
                 }
-                node.Childrens = BuildMySettingTree(nestedType, instance, node).OrderBy(x => x.Title).ToList();
-                yield return node;
             }
         }
 
@@ -366,11 +378,19 @@ namespace Log4Pro.CoreComponents.Settings
 
         private void InitNestedType(Type nestedType, string instanceKey)
         {
-            var typeDescriptionAttribute = nestedType.GetCustomAttributes<DescriptionAttribute>().FirstOrDefault();
-            var typeTitleAttribute = nestedType.GetCustomAttributes<TitleAttribute>().FirstOrDefault();
-            if (typeDescriptionAttribute == null || typeTitleAttribute == null)
+            if (nestedType.IsUserLevel())
             {
-                throw new ArgumentException($"{nameof(DescriptionAttribute)} or/and {nameof(TitleAttribute)} is mandantory for all setting type!");
+                return;
+            }
+            var typeDescriptionAttribute = nestedType.GetCustomAttributes<DescriptionAttribute>().FirstOrDefault();
+            if (typeDescriptionAttribute == null)
+            {
+                throw new ArgumentException($"There is incomplete setting class definition: {nestedType.Name}! {nameof(DescriptionAttribute)} is mandantory for all setting type!");
+            }
+            var typeTitleAttribute = nestedType.GetCustomAttributes<TitleAttribute>().FirstOrDefault();
+            if (typeTitleAttribute == null)
+            {
+                throw new ArgumentException($"There is incomplete setting class definition: {nestedType.Name}! {nameof(TitleAttribute)} is mandantory for all setting type!");
             }
             var settingTypeAttribute = nestedType.GetCustomAttributes<SettingTypeAttribute>().FirstOrDefault();
             if (settingTypeAttribute != null) // if null: this is a node only
@@ -444,6 +464,13 @@ namespace Log4Pro.CoreComponents.Settings
                         }
                         db.SaveChanges();
                         _cache.Publish($"{nameof(VSettings)}:{address.ToString()}", settingData.DefaultValue);
+                    }
+                    else
+                    {
+                        MethodInfo jsonConvertMethod = typeof(JsonConvert).GetMethod(nameof(JsonConvert.DeserializeObject), 1, new Type[] { typeof(string) });
+                        MethodInfo jsonConvertGeneric = jsonConvertMethod.MakeGenericMethod(settingType);
+                        var value = jsonConvertGeneric.Invoke(null, new object[] { existingSetting.Value });
+                        _cache.Publish($"{nameof(VSettings)}:{address.ToString()}", value);
                     }
                 }
             }

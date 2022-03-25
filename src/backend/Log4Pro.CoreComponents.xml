@@ -1,0 +1,1939 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Log4Pro.CoreComponents</name>
+    </assembly>
+    <members>
+        <member name="T:Log4Pro.CoreComponents.Caching.Cache">
+            <summary>
+            Object cache implementation
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Cache.#ctor(Log4Pro.CoreComponents.Caching.ICacheProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Caching.Cache"/> class.
+            </summary>
+            <param name="provider">The provider.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Cache.Publish``1(System.String,``0)">
+            <summary>
+            Publishes an object (value) into cache under the specified data identifier.
+            </summary>
+            <typeparam name="TStoredObject">The type of the stored object.</typeparam>
+            <param name="dataId">The data identifier.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Cache.Read``1(System.String)">
+            <summary>
+            Reads the specified value (by data identifier) from cache.
+            </summary>
+            <typeparam name="TStoredObject">The type of the stored object.</typeparam>
+            <param name="dataId">The data identifier.</param>
+            <exception cref="T:Log4Pro.CoreComponents.Caching.NotFoundException"></exception>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Cache.RemoveFromCache(System.String)">
+            <summary>
+            Removes an object (value) from cache under the specified data identifier.
+            </summary>
+            <param name="dataId">The data identifier.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Caching.Cache.AutoPublisher">
+            <summary>
+            The automatic publisher action.
+            You can set an "AutoPublisher" action. This action able to gives back the value based on data-identifier. 
+            When you set this no more necesary preload the cache value by call "Publish" method. 
+            Simply set this property and implement an working publisher action logic. 
+            When you call the "Read" method the first time, the "AutoPublisher" load the value by this data-identifier into cache.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Caching.ICacheProvider">
+            <summary>
+            Defines a cache provider interface
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.ICacheProvider.Publish``1(System.String,``0)">
+            <summary>
+            Publishes a value into the cache under specified data identifier.
+            </summary>
+            <typeparam name="TStoredObject">The type of the stored object.</typeparam>
+            <param name="dataId">The data identifier.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.ICacheProvider.Read``1(System.String)">
+            <summary>
+            Reads a stored data from cache
+            </summary>
+            <typeparam name="TStoredObject">The type of the stored oject.</typeparam>
+            <param name="dataId">The data identifier.</param>
+            <exception cref="T:Log4Pro.CoreComponents.Caching.NotFoundException"></exception>
+            <returns>The stored object from cache. (Or NotFoundException, if not found.)</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.ICacheProvider.Remove(System.String)">
+            <summary>
+            Removes the specified data from cache.
+            </summary>
+            <param name="dataId">The data identifier.</param>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Caching.NotFoundException">
+            <summary>
+            Not found in cache Exception. 
+            All provider implementations must throw this exception when the readed value not found in cache.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.NotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Caching.NotFoundException"/> class.
+            </summary>
+            <param name="dataId">The data identifier.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Caching.NotFoundException.DataId">
+            <summary>
+            Gets the data identifier.
+            </summary>
+            <value>
+            The data identifier.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Caching.Providers.ManagedMemory.ManagedMemoryCache">
+            <summary>
+            A cache provider that stores the cache values in a high-speed acces, concurrent available storage structure in clr-managed memory.
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Caching.ICacheProvider" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.ManagedMemory.ManagedMemoryCache.Publish``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.ManagedMemory.ManagedMemoryCache.Read``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.ManagedMemory.ManagedMemoryCache.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache">
+            <summary>
+            Redis cache provider for VRH caching
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Caching.ICacheProvider" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache.#ctor(Log4Pro.CoreComponents.Redis.IRedisConnectionMultiplexerStore,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache"/> class.
+            </summary>
+            <param name="redis">The redis multiplexer store</param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache.Publish``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache.Read``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCache.DatabaseNumber">
+            <summary>
+            No of Redis db, that uses by caching
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCacheAppSettings">
+            <summary>
+            Represernts the Redis cache provider app settings class
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Caching.Providers.Redis.RedisCacheAppSettings.UsedDatabase">
+            <summary>
+            The used Redis database number.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.ContentInjector.FileContentInjector">
+            <summary>
+            Content injector servie for useing in cshtmls.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.ContentInjector.FileContentInjector.#ctor(Log4Pro.CoreComponents.Hosting.IHostProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.ContentInjector.FileContentInjector"/> class.
+            Never create instance manually! Use .NET DI for correct dependency resolve!
+            </summary>
+            <param name="environment">The environment.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.ContentInjector.FileContentInjector.Inject(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Gets and returns with the specified file content.
+            </summary>
+            <param name="contentFileRelativePath">The content file relative path.</param>
+            <param name="dataInjections">The data injections. If dataInjections parameter is not null then the Inject method changes all occurrences of key to defined value.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Classes.Graphes.GraphPath">
+            <summary>
+            An infinite depth address of data
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.Graphes.GraphPath.GenericDataIdFactory``1">
+            <summary>
+            Creates an DataId (address of data) from a Type hierarchy (Nested types structure)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.Graphes.GraphPath.NewStartEntry(System.String)">
+            <summary>
+            Sets the new start entry of this adress.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Classes.Graphes.GraphPath.Entry">
+            <summary>
+            The Entry is a Node in the address with maximum one child node.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.Graphes.GraphPath.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Classes.Graphes.Node">
+            <summary>
+            A node in a graph
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Classes.Graphes.Node.Key">
+            <summary>
+            The key (uniqu identifier under parent node).
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Classes.Graphes.Node.Child">
+            <summary>
+            The child node.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Classes.Graphes.NodeExtensions">
+            <summary>
+            A node in a graph-principle addressing
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.Graphes.NodeExtensions.InterChainFromNestedTypeHierarchy(Log4Pro.CoreComponents.Classes.Graphes.Node,System.Type)">
+            <summary>
+            Creates a connection between two node by nested type hierarchy.
+            </summary>
+            <param name="node">The current node in hierarrchy.</param>
+            <param name="currentType">Type of the current element in nested type hierarchy.</param>
+            <returns>
+            This is a Trumple. 
+            Node: It is the created parent node if this is not the top class in nested type hierarchy. And the current node if is it.
+            Type: It is the Declaring type in the nested type hierarchy, if exists. And null if this is the top class.
+            </returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection">
+            <summary>
+            Base class for easy injectable in unit tests 
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection.AddService``2(Microsoft.Extensions.DependencyInjection.ServiceLifetime,``1)">
+            <summary>
+            Adds the service.
+            </summary>
+            <typeparam name="TServiceType">The type of the service type.</typeparam>
+            <typeparam name="TImplementationType">The type of the implementation type.</typeparam>
+            <param name="lifeTime">The life time.</param>
+            <param name="implementationInstance">The implementation instance.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection.GetService``1">
+            <summary>
+            Gets the service.
+            </summary>
+            <typeparam name="TService">The type of the service.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection._serviceCollection">
+            <summary>
+            The service collection
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Classes.UnitTestExtensions.TestBaseClassWithServiceCollection.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Hosting.HostProvider">
+            <summary>
+            Host provider impelmentation.
+            </summary>
+            <seealso cref="!:Log4Pro.CoreComponents.AspNetServices.Hosting.IHostProvider" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Hosting.HostProvider.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Hosting.HostProvider"/> class.
+            Never create instance manually! Use .NET DI for correct dependency resolve!
+            </summary>
+            <param name="environment">The environment.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Hosting.HostProvider.UsedEnvironment">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Hosting.IHostProvider"/>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Hosting.HostProvider.ApplicationName">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Hosting.IHostProvider"/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Hosting.HostProvider.ContentAbsolutePath(System.String)">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Hosting.IHostProvider"/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Hosting.HostProvider.WebRootAbsolutePath(System.String)">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Hosting.IHostProvider"/>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Hosting.IHostProvider">
+            <summary>
+            Host provider interface
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Hosting.IHostProvider.ContentAbsolutePath(System.String)">
+            <summary>
+            Gets absolute path from relative path under the current host content.
+            </summary>
+            <param name="relativePath">The relative path.</param>
+            <returns>The absolute path in current hosting environment.</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Hosting.IHostProvider.WebRootAbsolutePath(System.String)">
+            <summary>
+            Gets absolute path from relative path under the wwwroot.
+            </summary>
+            <param name="relativePath">The relative path.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Hosting.IHostProvider.UsedEnvironment">
+            <summary>
+            Gets the used environment in current host.
+            </summary>
+            <value>
+            The used environment.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Hosting.IHostProvider.ApplicationName">
+            <summary>
+            Gets the name of the application in current host.
+            </summary>
+            <value>
+            The name of the application.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions">
+            <summary>
+            Extension class for IServiceCollection for simplify our service registrations 
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddReportProvider``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the report provider. (Scoped lifetime)
+            And adds the all necesary services too, if those not registered yet.
+            So adds these dependency services:
+            	- PdfTools (see: https://github.com/HakanL/WkHtmlToPdf-DotNet)
+            	- HostProvider (Log4Pro.CoreComponents)
+            	- ContentInjector (Log4Pro.CoreComponents)
+            </summary>
+            <typeparam name="TImplementation">The type of the report implementation.</typeparam>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddHostProvider``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the host provider. (Singleton lifetime)
+            </summary>
+            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddContentInjector(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the content injector service. (Singleton lifetime)
+            And adds the all necesary services too, if those not regstered yet.
+            So registers thise dependency service:
+            	- HostProvider (Log4Pro.CoreComponents)
+            </summary>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddRedisConnectionMultiplexerStore(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the redis connection multiplexer store. (Singleton lifetime)
+            </summary>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddCache``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds cache.
+            </summary>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddVSettings(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Registers the vsettings service for DI.
+            </summary>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Log4ProServiceCollectionExtensions.AddOperationMessageCenter(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Registers the OperationMessageCenter services for DI.
+            </summary>
+            <param name="services">The services.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.AdditionalMessageData">
+            <summary>
+            További, az üzenethez tartozó adatok
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.AdditionalMessageData.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.AdditionalMessageData.DataKey">
+            <summary>
+            Adat azonosítója
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.AdditionalMessageData.DataValue">
+            <summary>
+            Adat értéke
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.AdditionalMessageData.OperationMessageId">
+            <summary>
+            FK: Az üzenet Id-ja, amelyhez ez az adat tartozik
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.AdditionalMessageData.OperationMessage">
+            <summary>
+            NP: Az üzenet, amelyhez ez az adat tartozik
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage">
+            <summary>
+            Represent an operation message 
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.Module">
+            <summary>
+            Id of module 
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.Instance">
+            <summary>
+            Instance or user id
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.OtherFilter">
+            <summary>
+            Egyéb érték, amit az üzenet megjelenítés/kezeléssel kapcsolatban lehet felhasználni konkrét alklamzásfüggően pl. felhasználókhóz, csoportokhoz kötve
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.TimeStamp">
+            <summary>
+            Üzenet időbélyege
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.MessageCategory">
+            <summary>
+            Üzenet kategóriája
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.Message">
+            <summary>
+            Üzenet
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.Handled">
+            <summary>
+            Ez a flag jelzi, hogy az üzenet kezelt/megtekintett
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.HandledTimeStamp">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.HandledBy">
+            <summary>
+            Az üzenetet jóváhagyó felhasználó
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.Thread">
+            <summary>
+            Ez egy olyan mező, amely segítségével összefoghatunk egy adott művelet közben keletkező üzeneteket
+            Pl.: valaminek a feldolgozása
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessage.AdditionalMessageDatas">
+            <summary>
+            NP: Az üzenethez tartozó további adatok
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext">
+            <summary>
+            Database context of Operation message center
+            </summary>
+            <seealso cref="T:Microsoft.EntityFrameworkCore.DbContext" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext"/> class.
+            </summary>
+            <param name="options">The options for this context.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext.OperationMessages">
+            <summary>
+            Operation messages
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext.AdditionalMessageDatas">
+            <summary>
+            Aditional data of operation message
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext.DB_SCHEMA">
+            <summary>
+            Database schema name
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextExtensions">
+            <summary>
+            Operation Message Center DAL servicees as extension methodes
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextExtensions.MyUnhandledErrorCount(Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext,System.String,System.String)">
+            <summary>
+            Gets unhandled error count in module/instance.
+            </summary>
+            <param name="db">The database.</param>
+            <param name="module">The module.</param>
+            <param name="instance">The instance.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextExtensions.CountThisFilter``1(Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext,System.String,System.String,``0)">
+            <summary>
+            Gets counts of message with the specified filter.
+            </summary>
+            <typeparam name="TFilterEnum">The type of the filter enum.</typeparam>
+            <param name="db">The database.</param>
+            <param name="module">The module.</param>
+            <param name="instance">The instance.</param>
+            <param name="filter">The filter.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextFactory">
+            <summary>
+            Implements the IDesignTimeDbContextFactory interface for support the design time commands of EF migration in VS 
+            </summary>
+            <seealso cref="T:Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory`1" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextFactory.CreateDbContext(System.String[])">
+            <summary>
+            Creates a new instance of a derived context.
+            </summary>
+            <param name="args">Arguments provided by the design-time service.</param>
+            <returns>
+            An instance of SettingContext.
+            </returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextFactorySQLite">
+            <summary>
+            Implements the IDesignTimeDbContextFactory interface for support the design time commands of EF migration in VS 
+            </summary>
+            <seealso cref="T:Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory`1" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextFactorySQLite.CreateDbContext(System.String[])">
+            <summary>
+            Creates a new instance of a derived context.
+            </summary>
+            <param name="args">Arguments provided by the design-time service.</param>
+            <returns>
+            An instance of SettingContext.
+            </returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContextSQLite">
+            <summary>
+            Context for unit testing
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.OperationMessageCenter.DAL.OperationMessageCenterContext" />
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.Internals.OperationMessageCenterAppSettings">
+            <summary>
+            App setting section for OperationMessageCenter componnent
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.Internals.OperationMessageCenterAppSettings.UsedConnectionString">
+            <summary>
+            The used connection string.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory">
+            <summary>
+            Defined operation message category
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory.Fatal">
+            <summary>
+            Fatális hiba 
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory.Error">
+            <summary>
+            Hiba
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory.Warning">
+            <summary>
+            Figyelmeztetés
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory.Information">
+            <summary>
+            Informális üzenet a működésről
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory.DetailInformation">
+            <summary>
+            Részletes működési információ
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry">
+            <summary>
+            An operation message entry
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.DbId">
+            <summary>
+            The database unique identifier (PK).
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.TimeStamp">
+            <summary>
+            The time stamp.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.Module">
+            <summary>
+            Module identifier
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.Instance">
+            <summary>
+            Instance identifier
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.OtherFilter">
+            <summary>
+            Other identifier
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.MessageCategory">
+            <summary>
+            Category of message
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.Message">
+            <summary>
+            The message body (human readable text)
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.Thread">
+            <summary>
+            The tread id brings together related operation messages.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry.AdditionalDatas">
+            <summary>
+            More detailed informations as list of key value pairs
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntryExtensions">
+            <summary>
+            Bővító metódusok az OperationMessageEntry típushoz
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntryExtensions.AddData(Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry,System.String,System.String)">
+            <summary>
+            Hozzáad egy új adatelemet az üzenethez
+            </summary>
+            <param name="messageEntry">üzenet</param>
+            <param name="key">adat kulcsa</param>
+            <param name="value">adat értéke</param>
+            <returns>Az üzenet objektum, az új adat hozzáadásával</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntryExtensions.SendMe(Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry,Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter,System.Boolean)">
+            <summary>
+            It adds (save the database) the operation message entry. It can do Sync (run and wait in caller tread) or assync (run in taskpool) mode, as the waitMe parameter provides.
+            </summary>
+            <param name="messageEntry">Operation message</param>
+            <param name="waitMe">Wait (true) or not wait to save the message.</param>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageService">
+            <summary>
+            Operation message center.
+            This is an Singletone DI service.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.DependencyInjection.IServiceScopeFactory,System.IServiceProvider,Log4Pro.CoreComponents.Caching.Cache)">
+            <summary>
+            Initializes a new instance of the <see cref="N:Log4Pro.CoreComponents.OperationMessageCenter"/> class.
+            This is an Singletone DI service. Never instantiate it manually!
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <param name="scopeFactory">The scope factory.</param>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="cache">The cache.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageService.AddMessageAsync(Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry)">
+            <summary>
+            Adds a message to operation message center (storage, cache, and subscribe layer)
+            
+            </summary>
+            <param name="entry">Operation message entry</param>
+            <returns>true, ha sikeres a művelet</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageService.AddMessage(Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageEntry)">
+            <summary>
+            Hozzáad egy üzenetet az üzenetközponthoz
+            </summary>
+            <param name="entry">Üzenet</param>
+            <returns>true, ha sikeres a művelet</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageService.GetDbContext(Microsoft.Extensions.DependencyInjection.IServiceScope)">
+            <summary>
+            Gets the database context.
+            In unit test environments provides the SQLite memory db.
+            In NOT unit test environment provides SQL server db.
+            </summary>
+            <param name="scope">The scope.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageService.GetAppSettingConfiguration(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Gets the application setting configuration.
+            This is a static part, 'cause use by ContextFactory.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <returns>Application setting of modul</returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter">
+            <summary>
+            Provides a writer to write operation message to operation message center.
+            This is a scoped DI service. 
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.Setup(System.String,System.String,Log4Pro.CoreComponents.OperationMessageCenter.MessageCategory)">
+            <summary>
+            Setups the writer working parameters.
+            </summary>
+            <param name="module">The module identifier.</param>
+            <param name="instance">The instance identifier.</param>
+            <param name="minimumWritedMessageCategory">The minimum writed message category.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.StartNewThread(System.String)">
+            <summary>
+            Starts the new operation thread.
+            The tread id brings together related operation messages.
+            </summary>
+            <param name="threadId">The thread identifier.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.DropThread">
+            <summary>
+            Drops the operation thread.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.FatalMessage(System.String,System.String)">
+            <summary>
+            Creates a fatal message.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.FatalMessage``1(System.String,``0)">
+            <summary>
+            Returns a new Fatal message with enum specified filter.
+            </summary>
+            <typeparam name="TFilterEnum">The type of the filter enum.</typeparam>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.ErrorMessage(System.String,System.String)">
+            <summary>
+            Creates an Error message.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.ErrorMessage``1(System.String,``0)">
+            <summary>
+            Returns a new Error message with enum specified filter.
+            </summary>
+            <typeparam name="TFilterEnum">The type of the filter enum.</typeparam>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.WarningMessage(System.String,System.String)">
+            <summary>
+            Creates a Warning message.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.WarningMessage``1(System.String,``0)">
+            <summary>
+            Returns a new Warning message with enum specified filter.
+            </summary>
+            <typeparam name="TFilterEnum">The type of the filter enum.</typeparam>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.InformationMessage(System.String,System.String)">
+            <summary>
+            Creates an Information message.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.InformationMessage``1(System.String,``0)">
+            <summary>
+            Returns a new information message with enum specified filter.
+            </summary>
+            <typeparam name="TFilterEnum">The type of the filter enum.</typeparam>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.DetailInformationMessage(System.String,System.String)">
+            <summary>
+            Creates a DetailInformation message.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.DetailInformationMessage``1(System.String,``0)">
+            <summary>
+            Returns a new detailinformation message with enum specified filter.
+            </summary>
+            <typeparam name="TFilterEnum">The type of the filter enum.</typeparam>
+            <param name="message">The message.</param>
+            <param name="otherFilter">The other filter.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.OperationMessageCenter.OperationMessageWriter.Thread">
+            <summary>
+            Get/Set the Thread id 
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Redis.IRedisConnectionMultiplexerStore">
+            <summary>
+            Stores and provides the reusable Redis Stackexchange ConnectionMultiplexer object
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.IRedisConnectionMultiplexerStore.Multiplexer">
+            <summary>
+            Privide the multiplexer to use Redis.
+            </summary>
+            <value>
+            The multiplexer.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Redis.MultiplexerHolder">
+            <summary>
+            This class encapsulates an Multiplexer instance, and provide auto reconnect an halted multiplexer.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Redis.MultiplexerHolder.#ctor(StackExchange.Redis.ConfigurationOptions,System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Redis.MultiplexerHolder"/> class.
+            </summary>
+            <param name="config">The configuration.</param>
+            <param name="recreateDelay">The recreate delay.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.MultiplexerHolder.TotalOutStanding">
+            <summary>
+            Gets the total out standing.
+            </summary>
+            <value>
+            The total out standing.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.MultiplexerHolder.MultiplexerCreated">
+            <summary>
+            Gets a value indicating whether [multiplexer created].
+            </summary>
+            <value>
+              <c>true</c> if [multiplexer created]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.MultiplexerHolder.InError">
+            <summary>
+            Gets a value indicating whether [in error].
+            </summary>
+            <value>
+              <c>true</c> if [in error]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.MultiplexerHolder.Multiplexer">
+            <summary>
+            Gets the multiplexer.
+            </summary>
+            <value>
+            The multiplexer.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.MultiplexerHolder.Id">
+            <summary>
+            Gets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Redis.RedisConnection">
+            <summary>
+            Represent an Redis connection with one or more Multiplexer stock (see PoolDeep parameter to)
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Redis.RedisConnection.#ctor(Log4Pro.CoreComponents.Redis.RedisConnectionAppSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Redis.RedisConnection"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.RedisConnection.BestConnection">
+            <summary>
+            Gets the best connection.
+            </summary>
+            <value>
+            The best connection.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Redis.RedisConnectionAppSettings">
+            <summary>
+            Represent an redis connection settings
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.RedisConnectionAppSettings.Connection">
+            <summary>
+            The connection as Stackexchange Redis connectionstring.
+            <see href="https://stackexchange.github.io/StackExchange.Redis/Configuration.html#basic-configuration-strings"/>
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.RedisConnectionAppSettings.PoolDeep">
+            <summary>
+            <strong>The pool deepness. It defines how many ConectionMultiplexers provide for this connection.</strong>
+            <para>Default value is 1.</para>
+            <para>
+            See the 6th point of <see href="https://gist.github.com/JonCole">@JonCole</see>'s guide
+            <see href="https://gist.github.com/JonCole/925630df72be1351b21440625ff2671f#file-redis-bestpractices-stackexchange-redis-md">here. </see>
+            </para>
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.RedisConnectionAppSettings.RecreateHaltedMultiplexerDelay">
+            <summary>
+            <strong>It specifies an time after which drop and recreat an unworking ConnectionMultiplexer object.</strong>
+            <para>Default value is 30 sec.</para>		 
+            <para>
+            See the <see href="https://gist.github.com/JonCole">@JonCole</see>'s guide  
+            <see href="https://gist.github.com/JonCole/925630df72be1351b21440625ff2671f#file-redis-bestpractices-stackexchange-redis-md">here. </see>
+            Here is the relevant sentence: 
+            </para>
+            <para>
+            "We have seen a few <see href="https://github.com/StackExchange/StackExchange.Redis/issues/559">rare cases </see> 
+            where StackExchange.Redis fails to reconnect after a connection blip (for example, due to patching). 
+            <strong>Creating a new ConnectionMultiplexer will fix the issue.</strong>"
+            </para>
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Redis.RedisConnectionMultiplexerStore">
+            <summary>
+            RedisConnectionMultiplexer store implementation
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Redis.IRedisConnectionMultiplexerStore" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Redis.RedisConnectionMultiplexerStore.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{Log4Pro.CoreComponents.Redis.RedisConnectionMultiplexerStore})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Redis.RedisConnectionMultiplexerStore"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Redis.RedisConnectionMultiplexerStore.Multiplexer">
+            <summary>
+            Privide the multiplexer to use Redis.
+            </summary>
+            <value>
+            The multiplexer.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Reports.IReport">
+            <summary>
+            Report interface: declaring a injected report service 
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Reports.IReport.GetPDFAsync``1(System.String,Log4Pro.CoreComponents.Reports.ReportViewModel{``0})">
+            <summary>
+            Gets the PDF asynchronous.
+            </summary>
+            <typeparam name="TContent">The concrate enclosed type in the report view model.</typeparam>
+            <param name="razorView">The used razor view as cshtml file link with relative path.</param>
+            <param name="model">The used view model instance to rendering view.</param>
+            <returns>Task with byte array treturn type, when the returned byte array is the generated PDF file as byte array</returns>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.IReport.PDFGlobalSettings">
+            <summary>
+            Gets the PDF global settings.
+            </summary>
+            <value>
+            Represents the PDF global settings.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.IReport.PDFHeaderSettings">
+            <summary>
+            Gets the PDF header settings.
+            </summary>
+            <value>
+            Represents the PDF header settings.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.IReport.PDFFooterSettings">
+            <summary>
+            Gets the PDF footer settings.
+            </summary>
+            <value>
+            Represents the PDF footer settings.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.IReport.PDFWebSettings">
+            <summary>
+            Gets the PDF web (html) settings.
+            </summary>
+            <value>
+            REpresent the PDF web (html) settings.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Reports.ReportViewModel`1">
+            <summary>
+            View model class for reports
+            </summary>
+            <typeparam name="TContent">The type of the content.</typeparam>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.ReportViewModel`1.CSS">
+            <summary>
+            The used css.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.ReportViewModel`1.PaperKind">
+            <summary>
+            Gets or sets the kind of the paper.
+            </summary>
+            <value>
+            The kind of the paper.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.ReportViewModel`1.Content">
+            <summary>
+            The concrate viewmodel content.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Reports.SimpleReport">
+            <summary>
+            Simple class for pdf reporting in .net core applications.
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Reports.SimpleReport.#ctor(System.IServiceProvider,Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Mvc.MvcViewOptions},Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider,WkHtmlToPdfDotNet.Contracts.IConverter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Reports.SimpleReport"/> class.
+            Never manually create an instance of this class because it must be parameterized manually! Use the great DI engine of the .net core!
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="options">The MvcView options.</param>
+            <param name="tempDataProvider">The temporary data provider.</param>
+            <param name="htmltoPDFConverter">The htmlto PDF converter.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Reports.SimpleReport.GetPDFAsync``1(System.String,Log4Pro.CoreComponents.Reports.ReportViewModel{``0})">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Reports.IReport"/>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.SimpleReport.PDFGlobalSettings">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Reports.IReport"/>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.SimpleReport.PDFHeaderSettings">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Reports.IReport"/>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.SimpleReport.PDFFooterSettings">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Reports.IReport"/>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Reports.SimpleReport.PDFWebSettings">
+            <inheritdoc cref="T:Log4Pro.CoreComponents.Reports.IReport"/>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Reports.SimpleReport.RenderViewAsyn``1(System.String,Log4Pro.CoreComponents.Reports.ReportViewModel{``0})">
+            <summary>
+            Renders the razor view asynchronous.
+            </summary>
+            <typeparam name="TContent">The type of the enlosed data in ReportViewModel.</typeparam>
+            <param name="razorView">The razor view.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException">If the specified cshtml view not found by Razor viewengine.</exception>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.CreateSetting">
+            <summary>
+            Represents a setting creation
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Settings.DAL.SettingHistory" />
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.CreateSetting.To">
+            <summary>
+            Created with this value
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.DeleteSetting">
+            <summary>
+            Represents a setting deletion
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Settings.DAL.SettingHistory" />
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.DeleteSetting.Description">
+            <summary>
+            This was the original description of deleted setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.DeleteSetting.Title">
+            <summary>
+            This was the original title of deleted setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.DeleteSetting.From">
+            <summary>
+            This was the value of deleted setting
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.ModifySetting">
+            <summary>
+            Represents a setting modification
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Settings.DAL.SettingHistory" />
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.ModifySetting.From">
+            <summary>
+            This was the original value of setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.ModifySetting.To">
+            <summary>
+            This became the new value of setting
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.OperationType">
+            <summary>
+            The type of operation
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DAL.OperationType.Create">
+            <summary>
+            Create a setting
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DAL.OperationType.Modify">
+            <summary>
+            Modify a value of setting
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DAL.OperationType.Delete">
+            <summary>
+            Delete a setting
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.Setting">
+            <summary>
+            Represent a setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.ModuleKey">
+            <summary>
+            The module of this setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.InstanceOrUserKey">
+            <summary>
+            The instance or user identifier of setting. (Use for instance or user levels sezttings.)
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.Key">
+            <summary>
+             Identifier key of this setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.Description">
+            <summary>
+            The informative description of the setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.Value">
+            <summary>
+            Current value of the setting as JSON serialized object.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.UserLevelSettings">
+            <summary>
+            Gets or sets a value indicating whether [user level settings].
+            </summary>
+            <value>
+              <c>true</c> if [user level settings]; otherwise, <c>false</c>.
+            </value>        
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.Setting.Version">
+            <summary>
+            The version of setting.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.SettingContext">
+            <summary>
+            Database context of Settings module.
+            </summary>
+            <seealso cref="T:Microsoft.EntityFrameworkCore.DbContext" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.DAL.SettingContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Log4Pro.CoreComponents.Settings.DAL.SettingContext})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.DAL.SettingContext"/> class.
+            </summary>
+            <param name="options">The options for this context.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.DAL.SettingContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Override this method to further configure the model that was discovered by convention from the entity types
+            exposed in <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> properties on your derived context. The resulting model may be cached
+            and re-used for subsequent instances of your derived context.
+            </summary>
+            <param name="modelBuilder">The builder being used to construct the model for this context. Databases (and other extensions) typically
+            define extension methods on this object that allow you to configure aspects of the model that are specific
+            to a given database.</param>
+            <remarks>
+            If a model is explicitly set on the options for this context (via <see cref="M:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseModel(Microsoft.EntityFrameworkCore.Metadata.IModel)" />)
+            then this method will not be run.
+            </remarks>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingContext.Settings">
+            <summary>
+            Settings
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingContext.Creates">
+            <summary>
+            Collection of all events which created a setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingContext.Modifies">
+            <summary>
+            Collection of all events which modified a setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingContext.Deletes">
+            <summary>
+            Collection of all events which deleted a setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingContext.SettingHistories">
+            <summary>
+            Collection of all events which manipulated the settings.
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DAL.SettingContext.DB_SCHEMA">
+            <summary>
+            Storage database schema of the settings.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.SettingContextFactory">
+            <summary>
+            Implements the IDesignTimeDbContextFactory interface for support the design time commands of EF migration in VS 
+            </summary>
+            <seealso cref="!:Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory&lt;DAL.SettingContext&gt;" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.DAL.SettingContextFactory.CreateDbContext(System.String[])">
+            <summary>
+            Creates a new instance of a derived context.
+            </summary>
+            <param name="args">Arguments provided by the design-time service.</param>
+            <returns>
+            An instance of SettingContext.
+            </returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.SettingContextFactorySQLite">
+            <summary>
+            Implements the IDesignTimeDbContextFactory interface for support the design time commands of EF migration in VS 
+            </summary>
+            <seealso cref="!:Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory&lt;DAL.SettingContext&gt;" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.DAL.SettingContextFactorySQLite.CreateDbContext(System.String[])">
+            <summary>
+            Creates a new instance of a derived context.
+            </summary>
+            <param name="args">Arguments provided by the design-time service.</param>
+            <returns>
+            An instance of SettingContext.
+            </returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.SettingContextSQLite">
+            <summary>
+            Context for unit testing
+            </summary>
+            <seealso cref="T:Log4Pro.CoreComponents.Settings.DAL.SettingContext" />
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DAL.SettingHistory">
+            <summary>
+            Egy beállítás értékének változása
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.Id">
+            <summary>
+            PK
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.Changer">
+            <summary>
+            User friendly name of user or module, who/which changed this setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.TimeStamp">
+            <summary>
+            The timestamp of the setting change.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.ModuleKey">
+            <summary>
+            The module of this setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.InstanceOrUserKey">
+            <summary>
+            Beállítás példány azonosító (pl. objektum instance-okhoz, vagy user level beállításokhoz való kötéshez)
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.SettingKey">
+            <summary>
+             A beállítás azonosítója
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.Version">
+            <summary>
+            The version of setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DAL.SettingHistory.OperationType">
+            <summary>
+            Gets or sets the type of the operation.
+            TPH discriminator column.
+            </summary>
+            <value>
+            The type of the operation.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DefaultValueAttribute">
+            <summary>
+            Attribute to define a default value a setting.
+             (Compile time constant only! To more complexity use the GetDefaultValue metod!!!)
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.DefaultValueAttribute.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.DefaultValueAttribute"/> class.
+            </summary>
+            <param name="defaultValue">The default value.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DefaultValueAttribute.DefaultValue">
+            <summary>
+            Gets the default value.
+            </summary>
+            <value>
+            The default value.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DescriptionAttribute">
+            <summary>
+            Attribute to define a description
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.DescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.DescriptionAttribute"/> class.
+            </summary>
+            <param name="descriptionValue">The description value.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.DescriptionAttribute.Description">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.Internals.SettingData">
+            <summary>
+            Beállítás adatiat reprezentáló osztály
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.Internals.SettingData.SettingAddress">
+            <summary>
+            Beállítás címzése
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.Internals.SettingData.Description">
+            <summary>
+            Leírás a beállításhoz
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.Internals.SettingData.DefaultValueAsJsonString">
+            <summary>
+            Alapértelmezett érték
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.Internals.SettingData.SettingSelections">
+            <summary>
+            Ha a beáálítás diszkrét értékeket vehet fel, akkor ez képviseli a lehetséges értékek választéklistáját 
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.Internals.SettingData.Version">
+            <summary>
+            The version of setting.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions">
+            <summary>
+            A C# eszközökkel való, kódba helyezett definiciók feldolgozásának a segédműveletei
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetSettingKey(System.Type)">
+            <summary>
+            Visszadja a beállítás definicióból a definicoó alapján képzett kulcsot, mint stringet
+            </summary>
+            <param name="settingDefinition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetDescription(System.Type)">
+            <summary>
+            Visszadja a beállításhoz tartozó definiált Description értéket 
+            TODO: Multilanguage támogatás?
+            </summary>
+            <param name="settingDefinition">A definiciót hordozó típus</param>
+            <returns>Megjegyzés szövege (beállítás leírása)</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.IsUserLevel(System.Type)" -->
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetVersion(System.Type)">
+            <summary>
+            Gets the version of setting from setting definition.
+            (If Version attribute presents, else gets null.)
+            </summary>
+            <param name="settingDefinition">The setting definition.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetSettingType(System.Type)">
+            <summary>
+            Visszadja a beállításhoz definiált típust, ha nincs megadva, akkor null
+            </summary>
+            <param name="settingDefinition">A definiciót hordozó típus</param>
+            <returns>A beállítás típusa</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetDefaultValue``1(System.Type)">
+            <summary>
+            Visszadja a beállítás definicióból a defult értéket
+            </summary>
+            <param name="settingDefinition">A definiciót hordozó típus</param>
+            <returns>alapértelmezett érték</returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetSettingSelections(System.Type)">
+            <summary>
+            Visszadja a definició alapján a lehetséges értékeket, ha a beállítás egy választéklista értékeit veheti fel
+            </summary>
+            <param name="settingDefinition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetModuleName(System.Type)">
+            <summary>
+            Visszadja a használandó module nevét a beállítás definicióból
+            </summary>
+            <param name="settingDefinition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetAllDefinedSettingType(System.Type)">
+            <summary>
+            Gets the all defined setting types under this holder type
+            </summary>
+            <param name="settingHolderType">Type of the setting holder.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.ValuesToPrettyFormat(Log4Pro.CoreComponents.Settings.SettingRepresentation)">
+            <summary>
+            Convert valueses to pretty format.
+            </summary>
+            <param name="storeFormat">Setting with the store formated values.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.ValuesToStoreFormat(Log4Pro.CoreComponents.Settings.SettingRepresentation)">
+            <summary>
+            Convert valueses to store format.
+            </summary>
+            <param name="prettyFormat">Setting with the pretty formated values.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.Sensitive(System.Type)">
+            <summary>
+            This setting is sensitive data?
+            Password, etc...
+            </summary>
+            <param name="settingType">Type of the setting.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.JsonPrettify(System.String)">
+            <summary>
+            Converts JSON string to pretty format.
+            </summary>
+            <param name="json">The json.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.JsonUnPrettify(System.String)">
+            <summary>
+            Converts JSON string to store format
+            </summary>
+            <param name="json">The json.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.Internals.SettingExtensions.GetAllNestedTypes(System.Type)">
+            <summary>
+            Gets all nested types with setting key under currentType definition
+            </summary>
+            <param name="currentType">Type of the current.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.Internals.VSettingsAppSettings">
+            <summary>
+            App setting section for VSetting componnent
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.Internals.VSettingsAppSettings.UsedConnectionString">
+            <summary>
+            The used connection string.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.IsDefaultAttribute">
+            <summary>
+            Atribute to mark an enum value as default.
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.IsDefaultAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.IsDefaultAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.ModuleKeyAttribute">
+            <summary>
+            Attribute to specify a modul id for an setting class
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.ModuleKeyAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.ModuleKeyAttribute"/> class.
+            </summary>
+            <param name="moduleKey">The module key.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.ModuleKeyAttribute.ModuleKey">
+            <summary>
+            Gets the module key.
+            </summary>
+            <value>
+            The module key.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.NotFoundException">
+            <summary>
+            Not found in setting database Exception. 
+            </summary>
+            <seealso cref="T:System.Exception" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.NotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.NotFoundException"/> class.
+            </summary>
+            <param name="dataId">The data identifier.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.NotFoundException.DataId">
+            <summary>
+            Gets the data identifier.
+            </summary>
+            <value>
+            The data identifier.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.SensitiveDataAttribute">
+            <summary>
+            Indicates that this is sensitive data
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.SensitiveDataAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:SensitiveData"/> class.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingAddress.ModuleKey">
+            <summary>
+            Id of module to which this setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingAddress.InstanceOrUserKey">
+            <summary>
+            Id of instance (or user) to which this setting 
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingAddress.Key">
+            <summary>
+            Id of this setting
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.SettingAddress.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.SettingRepresentation">
+            <summary>
+            Full representation of a setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.DbId">
+            <summary>
+            The database identifier in background permanent storage database.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.HosterModule">
+            <summary>
+            This setting is hosted in this module.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.HosterInstance">
+            <summary>
+            The instance or user identifier which belongs this setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.SettingModule">
+            <summary>
+            The setting module which define this setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.SettingInstance">
+            <summary>
+            The setting instance name.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.Key">
+            <summary>
+            The settig unique key identifier 
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.Description">
+            <summary>
+            The description of setting.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.DescriptionDefault">
+            <summary>
+            The original description of setting which defined by developer in setting declaration type.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.DbSideValue">
+            <summary>
+            The database side value.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.CacheSideValue">
+            <summary>
+            The cache side value.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.DefaultValue">
+            <summary>
+            The default value for this setting defined by developer in setting declaration type.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.DataType">
+            <summary>
+            Gets or sets the type of the data.
+            </summary>
+            <value>
+            The type of the data.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.PrettyFormat">
+            <summary>
+            Gets or sets a value indicating whether [pretty format].
+            </summary>
+            <value>
+              <c>true</c> if [pretty format]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.ParentSetting">
+            <summary>
+            The parent setting (for special setting tree structure)
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.Depends">
+            <summary>
+            The depends (for special setting tree structure)
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.Disabled">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Log4Pro.CoreComponents.Settings.SettingRepresentation"/> is disabled.
+            (for special setting tree structure only: disabled 'cause the parent boolean type declarator type current value (in permanent storage) is false)
+            </summary>
+            <value>
+              <c>true</c> if disabled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingRepresentation.SensitiveData">
+            <summary>
+            Gets or sets a value indicating whether [sensitive data].
+            </summary>
+            <value>
+              <c>true</c> if [sensitive data]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.DataType">
+            <summary>
+            Posible data types (for dashboard UI)
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DataType.Numeric">
+            <summary>
+            The numeric (represent an input in UI side)
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DataType.Boolean">
+            <summary>
+            The boolean (represent a checkbox in UI side)
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DataType.String">
+            <summary>
+            The string (represent an input in UI side)
+            </summary>
+        </member>
+        <member name="F:Log4Pro.CoreComponents.Settings.DataType.Complex">
+            <summary>
+            The complex (represent a textarea with json string in UI side)
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.SettingSelection">
+            <summary>
+            An posible options for an options type setting
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingSelection.Value">
+            <summary>
+            The value.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingSelection.Title">
+            <summary>
+            The title.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingSelection.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingSelection.IsDefault">
+            <summary>
+            Gets or sets a value indicating whether this instance is default.
+            </summary>
+            <value>
+              <c>true</c> if this instance is default; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.SettingSelectionsAttribute">
+            <summary>
+            Mark an Enum as source of an options-type setting
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.SettingSelectionsAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.SettingSelectionsAttribute"/> class.
+            </summary>
+            <param name="enumType">Type of the enum.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingSelectionsAttribute.SettingSelections">
+            <summary>
+            Gets the setting selections.
+            </summary>
+            <value>
+            The setting selections.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.SettingTypeAttribute">
+            <summary>
+            Type of setting
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.SettingTypeAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.SettingTypeAttribute"/> class.
+            </summary>
+            <param name="type">The type.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.SettingTypeAttribute.Type">
+            <summary>
+            Gets the type.
+            </summary>
+            <value>
+            The type.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.TitleAttribute">
+            <summary>
+            Attribute to define a description
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.TitleAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.DescriptionAttribute"/> class.
+            </summary>
+            <param name="descriptionValue">The description value.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.TitleAttribute.Title">
+            <summary>
+            Gets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.UserLevelAttribute">
+            <summary>
+            Indicates that this is sensitive data
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.UserLevelAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="!:SensitiveData"/> class.
+            </summary>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.VersionAttribute">
+            <summary>
+            Setting version
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VersionAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.VersionAttribute"/> class.
+            </summary>
+            <param name="versionValue">The version value.</param>
+        </member>
+        <member name="P:Log4Pro.CoreComponents.Settings.VersionAttribute.Version">
+            <summary>
+            Gets the version.
+            </summary>
+            <value>
+            The version.
+            </value>
+        </member>
+        <member name="T:Log4Pro.CoreComponents.Settings.VSettings">
+            <summary>
+            Setting implementation
+            </summary>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VSettings.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{Log4Pro.CoreComponents.Settings.VSettings},Microsoft.Extensions.DependencyInjection.IServiceScopeFactory,System.IServiceProvider,Log4Pro.CoreComponents.Caching.Cache)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Log4Pro.CoreComponents.Settings.VSettings"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <param name="logger">The logger.</param>
+            <param name="scopeFactory">The scope factory.</param>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="cache">The cache.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VSettings.GetSettingValue``2(System.String)">
+            <summary>
+            Gets the setting.
+            </summary>
+            <typeparam name="TSettingValue">The type of the settings value.</typeparam>
+            <typeparam name="TSetting">The type of the settings.</typeparam>
+            <param name="instanceKey">The instance key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VSettings.StoreSettingValue``2(``0,System.String,System.String)">
+            <summary>
+            Stores the setting value.
+            </summary>
+            <typeparam name="TSettingValue">The type of the setting value.</typeparam>
+            <typeparam name="TSetting">The type of the setting.</typeparam>
+            <param name="settingValue">The setting value.</param>
+            <param name="instanceKey">The instance key.</param>
+            <param name="changer">The changer.</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VSettings.StoreSettingValueFromUI(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Store the setting value from an ui request.
+            </summary>
+            <param name="definingTypeId">This type defines the setting</param>
+            <param name="settingTypeId">This type defines the type of setting value</param>
+            <param name="jsonValue">This json string represents the setted value</param>
+            <param name="instance">Instance id</param>
+            <param name="changer">Setting changer</param>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VSettings.InitializeMe``1(System.String)">
+            <summary>
+            Initializes me.
+            </summary>
+            <typeparam name="TSettingHolderType">The type of the setting holder type.</typeparam>
+            <param name="instanceKey">The instance key.</param>
+            <exception cref="T:System.ArgumentException">
+            </exception>
+        </member>
+        <member name="M:Log4Pro.CoreComponents.Settings.VSettings.BuildAllSettingTree(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Get the full setting tree from present senting definition for UI
+            </summary>
+            <param name="wantedModules">Only this moduls's settings</param>
+            <param name="wantedInstances">Only this instances</param>
+            <returns>Full tree of settings</returns>
+        </member>
+    </members>
+</doc>
