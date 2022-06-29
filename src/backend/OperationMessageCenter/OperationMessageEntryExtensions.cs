@@ -20,7 +20,10 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
 		/// <returns>Az üzenet objektum, az új adat hozzáadásával</returns>
 		public static OperationMessageEntry AddData(this OperationMessageEntry messageEntry, string key, string value)
 		{
-			messageEntry.AdditionalDatas.Add(new KeyValuePair<string, string>(key, value));
+			if (messageEntry != null)
+			{
+				messageEntry.AdditionalDatas.Add(new KeyValuePair<string, string>(key, value));
+			}
 			return messageEntry;
 		}
 
@@ -31,7 +34,10 @@ namespace Log4Pro.CoreComponents.OperationMessageCenter
 		/// <param name="waitMe">Wait (true) or not wait to save the message.</param>
 		public static void SendMe(this OperationMessageEntry messageEntry, OperationMessageWriter writer, bool waitMe = false)
 		{
-			writer.AddMessage(messageEntry, waitMe);
+			if (messageEntry != null)
+			{
+				writer.AddMessage(messageEntry, waitMe);
+			}
 		}
 	}
 }

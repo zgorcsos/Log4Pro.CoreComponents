@@ -10,13 +10,9 @@
     <PackageProjectUrl>https://github.com/zgorcsos/Log4Pro.CoreComponents</PackageProjectUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Net5+ ASP.NET</PackageTags>
-    <PackageReleaseNotes>There is compatibility API changes in Settings part:
-- UserLevel attribute for mark as user level settings. (User level settings never initialize and not appear in the settings administration API.) 
-There is fixes in Settings part:
-- It makes independent the serialization of setting value from used JSON serializer when the viewmodel of settings tree is serializing.
-There is fixes in OperationMessageCenter part:
-- Marks MessageCategory.Warning enum value as defult (for direct use under VSettings)</PackageReleaseNotes>
-    <Version>1.1.0</Version>
+    <PackageReleaseNotes>There is fixes in OperationMessageCenter part:
+- Adds null protection to OperationMessageEntry extension methods to prevent nullreference exceptions</PackageReleaseNotes>
+    <Version>1.1.1</Version>
     <PackageIcon>serviceicon.png</PackageIcon>
     <PackageId>Log4Pro.CoreComponents</PackageId>
     <RepositoryUrl>https://github.com/zgorcsos/Log4Pro.CoreComponents</RepositoryUrl>
